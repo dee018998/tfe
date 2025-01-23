@@ -1,0 +1,12 @@
+{% for item in items %}
+
+    <li class="nav-item" role="presentation">
+        <button class="nav-link  bg-light me-3" id="pills-{{ item.name }}-tab" data-bs-toggle="pill" data-bs-target="#pills-{{ item.name }}" type="button" role="tab" aria-controls="pills-{{ item.name }}" aria-selected="false">{{ item.name }}</button>
+    </li>
+    {#        <p>
+                {{ category.name }}
+        </p>
+{% for course in category.course %}
+<p>{{ course.name }}</p>#}
+
+{% endfor %}

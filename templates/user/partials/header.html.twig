@@ -1,0 +1,93 @@
+{% block header %}
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary pageformat">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav1"
+                        aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav1">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_courses') }}">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_actus') }}">News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#">Contacts</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav ">
+
+                    <ul class="navbar-nav">
+
+                        {% if not app.user %}
+                            {#   ITEM  #}
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-dark btn-sm m-2" href="{{ path('app_login') }}"><i
+                                            class="icofont-user"></i>S'identifier</a>
+                            </li>
+                            {#   ITEM  #}
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-dark btn-sm m-2" href="{{ path('app_register') }}"><i
+                                            class="icofont-ui-add"></i>
+                                    S'enregistrerr</a>
+                            </li>
+                        {% elseif is_granted('ROLE_USER') %}
+                        <h2>monpanier</h2>
+                        /user/cart
+                            {#   ITEM  #}
+                            {#    DROP DOWN MENU    #}
+                            <li class="nav-item dropdown">
+                                <button class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    {% if not app.user.image %}
+                                        <img src="{{ asset('images/default/default.jpg') }}"
+                                             class="img-avatar"
+                                             alt="User image">
+                                    {% else %}
+                                        <img src="{{ asset('/images/avatar/' ~ app.user.image)  }}"
+                                             class="img-avatar"
+                                             alt="User image">
+                                    {% endif %}  {{ app.user.firstName|capitalize }} {{
+                                    app.user.lastName|capitalize }}
+
+                                </button>
+                                {#    DROP DOWN ITEMS    #}
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ path('app_user_profil') }}">Mon profils</a></li>
+                                  <li><a class="dropdown-item" href="{{ path('app_user_edituser',{'id':app.user.id} ) }}">Modifiez mon profil</a></li>
+                                    <div class="dropdown-divider"></div>
+                                    <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <li><div class="dropdown-divider"></div></li>
+                                        <li><a class="dropdown-item" href="{{ path('app_admin_course') }}">Admin view</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                            {#   END DROP DOWN #}
+                        {% endif %}
+
+
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+        <div class="banner"></div>
+
+    </header>
+{% endblock header %}

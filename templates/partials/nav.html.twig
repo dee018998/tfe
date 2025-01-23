@@ -1,0 +1,244 @@
+{% block header %}
+    {#    NAVBAR NAV     #}
+    <nav class="navbar navbar-expand-lg fixed-top bg-dark py-1 " data-bs-theme="dark">
+        <div class="container justify-content-around ">
+            <div>
+                <a class="navbar-brand" href="{{ path('app_home') }}">
+                    <img class="logo" src="{{ asset('images/online-dj-school-Logo.png') }}" alt="online dj school logo"></a>
+
+            </div>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
+                <div>
+                    <ul class="navbar-nav  mb-2 mb-lg-0">
+                        {#             HOME      #}
+                        <li class="nav-item">
+                            <a class="nav-link  {{ (app.request.get('_route') == 'app_home')? 'active' : '' }}"
+                               aria-current="page" href="{{ path('app_home') }}">Home</a>
+                        </li>
+                        {#             TAB & PHONE COURSES NAV        #}
+                        <li class="nav-item dropdown d-lg-none">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">Courses</a>
+                            <div class="dropdown-menu " data-bs-popper="static">
+
+                                {{ render(controller('App\\Controller\\CategoryController::categories')) }}
+                                {{ render(controller('App\\Controller\\LevelController::levels')) }}
+                                <a class="  btn  btn-outline-light border-light  rounded-pill  ms-1  mb-2"
+                                   href="{{ path('app_courses') }}">All</a>
+                            </div>
+                        </li>
+                        {#             TAB & PHONE NEWS NAV        #}
+                        <li class="nav-item dropdown d-lg-none">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">News</a>
+                            <div class="dropdown-menu " data-bs-popper="static">
+                                {{ render(controller('App\\Controller\\FamilyController::familiesPhone')) }}
+                                <a class="  btn  btn-outline-light border-light  rounded-pill  ms-1  mb-2"
+                                   href="{{ path('app_actus') }}">All</a>
+
+                            </div>
+                        </li>
+
+                        {#             LG COURSES NAV        #}
+
+                        <li class="nav-item d-none d-lg-block {{ (( app.request.get('_route') == 'app_courses_category') or (app.request.get('_route') == 'app_courses_level') or (app.request.get('_route') == 'app_courses'))? 'active' : '' }} ">
+                            <button class="nav-link dropdown-toggle " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseExample" aria-expanded="true"
+                                    aria-controls="collapseExample">
+                                Courses
+                            </button>
+                        </li>
+                        <li class="nav-item d-none d-lg-block {{ (( app.request.get('_route') == 'app_courses_category') or (app.request.get('_route') == 'app_courses_level') or (app.request.get('_route') == 'app_courses'))? 'active' : '' }} ">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="nav-link dropdown-toggle" data-bs-toggle="modal"
+                                    data-bs-target="#coursesModal">
+                                Courses
+                            </button>
+                        </li>
+                        {#             NEWS COURSES NAV        #}
+                        <li class="nav-item d-none d-lg-block {{ (app.request.get('_route') == 'app_actus')? 'active' : '' }}">
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="nav-link dropdown-toggle" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                News
+                            </button>
+                        </li>
+
+                        {#
+                        #}
+                        {#             News NAV        #}{#
+                        <li class="nav-item">
+                            <a class="nav-link {{ (app.request.get('_route') == 'app_actus')? 'active' : '' }}"
+                               href="{{ path('app_actus') }}">News</a>
+                        </li>
+                        #}
+
+                        {#             CONTACT NAV        #}
+                        <li class="nav-item">
+                            <a class="nav-link {{ (app.request.get('_route') == 'app_contact')? 'active' : '' }}"
+                               href="{{ path('app_contact') }}">Contact</a>
+                        </li>
+                        {#             CARD NAV        #}
+                        <li class="nav-item">
+                            <a href="/user/cart"
+                               class="nav-link mb-2 {{ (app.request.get('_route') == 'app_home')? 'active' : '' }}"><i
+                                        class="icofont-cart me-1 mb-2 text-center nav-ico"></i></a>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-nav">
+                    {% if not app.user %}
+                        {#   ITEM  #}
+                        <li class="nav-item dropdown d-lg-none">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">News</a>
+                            <div class="dropdown-menu " data-bs-popper="static">
+
+                                <a class="  btn  btn-outline-light border-light  rounded-pill  ms-1  mb-2"
+                                   href="{{ path('app_actus') }}">All</a>
+
+                            </div>
+                        </li>
+                        <div class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">Login</a>
+                            <div class="dropdown-menu " data-bs-popper="static">
+                                <a class="  btn  btn-outline-light border-light  rounded-pill  ms-1  mb-2"
+                                   href="{{ path('app_login') }}"><i
+                                            class="icofont-user me-4"></i>Sign in</a>
+                                <a
+                                        class="  btn  btn-outline-light border-light  rounded-pill  ms-1  mb-2"
+                                        href="{{ path('app_register') }}"><i
+                                            class="icofont-ui-add me-2"></i>
+                                    Sign up</a>
+                            </div>
+                        </div>
+
+                    {% else %}
+
+
+                        {#   ITEM  #}
+                        {#    DROP DOWN MENU    #}
+                        <div class=" dropdown d-flex">
+                            <button class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                {% if not app.user.image %}
+                                    <img src="{{ asset('images/default/default.jpg') }}"
+                                         class="img-avatar"
+                                         alt="User image">
+                                {% else %}
+                                    <img src="{{ asset('/images/avatar/' ~ app.user.image) }}"
+                                         class="img-avatar"
+                                         alt="User image">
+                                {% endif %}
+                                {{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }}
+
+                            </button>
+                            {#    DROP DOWN ITEMS    #}
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ path('app_user_profil') }}">Mon profil</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_user_edituser',{'id':app.user.id} ) }}">Modifiez
+                                        mon profil</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ path('app_admin_course') }}">Admin view</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        {#   END DROP DOWN #}
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </nav>
+    {#              END NAV                    #}
+
+
+    <div class="modal mt-5 fade drop-shade " id="coursesModal" tabindex="-1" aria-labelledby="coursesModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl ">
+            <div class="modal-content p-5 bg-black  p-4 my-5 rounded-5  modal-dialog-scrollable ">
+                <ul class="nav nav-pills mb-3 d-flex justify-content-start " id="pills-tab" role="tablist">
+                    <li class="nav-item " role="presentation">
+                        <a class="nav-link active me-3" id="pills-home-tab" data-bs-toggle="pill"
+                           data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                           aria-selected="true">Best sellers</a>
+                    </li>
+                    {{ render(controller('App\\Controller\\CategoryController::navcat')) }}
+                    {{ render(controller('App\\Controller\\LevelController::navlev')) }}
+                    <li class="nav-item " role="presentation">
+                        <a class="nav-link rounded-pill" href="{{ path('app_courses') }}">All</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    {{ render(controller('App\\Controller\\CourseController::nav')) }}
+                    {{ render(controller('App\\Controller\\CategoryController::navcardcat')) }}
+                    {{ render(controller('App\\Controller\\LevelController::navcardlev')) }}
+                </div>
+                <button type="button" class="btn-close bg-light  drop-shade" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal NEWS -->
+    <div class="modal fade mt-5 drop-shade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content p-5 bg-black bg-opacity-75 p-4 my-5 rounded-5 ">
+                <ul class="nav nav-pills mb-3 d-flex justify-content-start" id="pills-tab" role="tablist">
+
+
+                    {{ render(controller('App\\Controller\\FamilyController::familiesPhone')) }}
+                    <li><a class="dropdown-item" href="{{ path('app_actus') }}">Tout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {#    COURSES NAV BODY     #}
+    <div class="accordion-collapse collapse  bg-transparent position-absolute z-index-1 fixed-top mt-5"
+         id="collapseExample" data-bs-parent="#accordionFlushExample">
+        <div class="container bg-black bg-opacity-75 p-4 my-5 rounded-5 ">
+            <ul class="nav nav-pills mb-3 d-flex justify-content-start" id="pills-tab" role="tablist">
+                <li class="nav-item " role="presentation">
+                    <a class="nav-link active me-3" id="pills-home-tab" data-bs-toggle="pill"
+                       data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                       aria-selected="true">Best sellers</a>
+                </li>
+
+                {{ render(controller('App\\Controller\\CategoryController::navcat')) }}
+                {{ render(controller('App\\Controller\\LevelController::navlev')) }}
+                <li class="nav-item " role="presentation">
+                    <a class="nav-link rounded-pill" href="{{ path('app_courses') }}">All</a>
+                </li>
+            </ul>
+            <div class="tab-content " id="pills-tabContent">
+                {{ render(controller('App\\Controller\\CourseController::nav')) }}
+                {{ render(controller('App\\Controller\\CategoryController::navcardcat')) }}
+                {{ render(controller('App\\Controller\\LevelController::navcardlev')) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock header %}

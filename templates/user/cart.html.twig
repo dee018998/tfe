@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserCartController!{% endblock %}
+
+{% block content %}
+
+    {% if items %}
+        <h1>Votre panier</h1>
+<div>
+    <table class="table  rounded-3">
+        <tr>
+            <th>Formation</th>
+            <th>Prix</th>
+            <th>Action</th>
+        </tr>
+
+            {% for item in items %}  <tr>
+            <td>
+                <div class="row">
+                    <img class=" col-2"
+                         src="{{ asset('images/courses/' ~ item.course.image) }}"
+                         alt="Card image cap">
+                    <div class="col"><h4>{{ item.course.name|capitalize }}</h4>
+                        <p>{{ item.course.smallDescription }}</p>
+                    </div>
+                </div>
+            </td>
+                <td>{{ item.course.price }} crédits</td>
+                <td><a href="delcoursefromcart/{{ item.course.id }}" class="text-decoration-none"><i class="icofont-minus-square"></i></a></td>  </tr>
+            {% endfor %}
+       <tr>
+           <td >
+               <div class=" row justify-content-around mt-3">
+                   <a href="{{ path('app_courses') }}" class="col-3 btn btn-outline-dark">Retour au cours</a>
+                   <a href="{{ path('app_cart_validate') }}" class="col-3 btn btn-outline-primary">Valider ma commande</a></div>
+
+           </td>
+           <td>
+               <div class="">
+                   <p class="">TOTAL : </p>
+                   <p class=""> {{ total }} Crédits</p>
+
+               </div>
+           </td>
+           <td><a href="{{  path('app_cart_delete') }}"><i class="icofont-trash"></i></a></td>
+       </tr>
+    </table>
+</div>
+    {% else %}
+    <h2 class="alert-danger">Votre panier est vide</h2>
+
+{% endif %}
+
+{% endblock %}

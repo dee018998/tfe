@@ -1,0 +1,115 @@
+{% block body %}
+    <div class="bg-dark col-3 pb-2 my-2 rounded-2"><h2>MENU</h2>
+
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <div class="accordion-header" id="headingOne">
+                    <div class="accordion-button {{ (app.request.get('_route') == 'app_admin_course')? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne " aria-expanded="{{ (app.request.get('_route') == 'app_admin_course')? 'true' : 'false' }}" aria-controls="collapseOne">
+                        <i class="icofont-book-alt me-3"></i><p class="accordion-header " id="">Les cours</p>
+
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-collapse collapse {% if app.request.get('_route') == 'app_admin_course' %}show{% endif %}" aria-labelledby="headingOne"
+                     data-bs-parent="#accordionExample">
+
+                    <div class="accordion-body">
+                        <div>
+                            <a href="{{ path('app_admin_course') }}" class="text-decoration-none">Gestion des cours</a>
+                        </div>
+                        <div>
+                            <a href="{{ path('app_admin_newcourse') }}" class="text-decoration-none"><i class="icofont-plus">Ajouter un cours</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" id="headingTwo">
+                    <div class="accordion-button {{ (app.request.get('_route') == 'app_admin_comment')? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="{{ (app.request.get('_route') == 'app_admin_comment')? 'true' : 'false' }}" aria-controls="collapseTwo">
+                        <i class="icofont-comment me-3"></i><p class="accordion-header " id="">Les commentaires</p>
+
+                    </div>
+                </div>
+                <div id="collapseTwo" class="accordion-collapse collapse {% if app.request.get('_route') == 'app_admin_comment' %}show{% endif %}" aria-labelledby="headingTwo"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div>
+                            <a href="{{ path('app_admin_comment') }}" class="btn">Gestion des commentaire</a>
+                        </div>
+                        <div>
+                            <a href="" class="btn">#To do : section moderator#</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <div class="accordion-item">
+                <div class="accordion-header" id="headingThree">
+                    <div class="accordion-button {{ (app.request.get('_route') == 'app_admin_user')? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="{{ (app.request.get('_route') == 'app_admin_user')? 'true' : 'false' }}"
+                            aria-controls="collapseThree">
+                        <i class="icofont-group-students me-3"></i><p class="accordion-header " id="">Les utilisateurs</p>
+                    </div>
+                </div>
+                <div id="collapseThree" class="accordion-collapse collapse {{ (app.request.get('_route') == 'app_admin_user')? 'show' : '' }}" aria-labelledby="headingThree"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div>
+                            <a href="{{ path('app_admin_user') }}" class="btn">Gestion des utilisateurs</a>
+                        </div>
+                        <div>
+                            <a href="{{ path('app_register') }}" class="btn">Ajouter un utilisateur</a>
+                        </div>
+
+                            <div>
+                                <a href="{{ path('app_admin_team') }}" class="btn border-top">Gestion des admins</a>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion-item">
+                <div class="accordion-header" id="headingFour">
+                    <div class="accordion-button {{ (app.request.get('_route') == 'app_admin_inscription')? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="{{ (app.request.get('_route') == 'app_admin_inscription')? 'true' : 'false' }}" aria-controls="collapseThree">
+                        <i class="icofont-paper me-3"></i><p class="accordion-header " id="">Les inscriptions</p>
+                    </div>
+                </div>
+                <div id="collapseFour" class="accordion-collapse collapse {{ (app.request.get('_route') == 'app_admin_inscription')? 'show' : '' }}" aria-labelledby="headingFour"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div>
+                            <a href="{{ path('app_admin_inscription') }}" class="btn">Gestion des inscriptions</a>
+                        </div>
+                        <div>
+                            <a href="" class="btn">Prochaine fonctionnalité</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" id="headingFive">
+                    <div class="accordion-button {{ (app.request.get('_route') == 'app_admin_actus')? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFive" aria-expanded="{{ (app.request.get('_route') == 'app_admin_actus')? 'true' : 'false' }}" aria-controls="collapseThree">
+                        <i class="icofont-newspaper me-3"></i><p class="accordion-header text-end " id="headingTwo">Les actualités</p>
+                    </div>
+                </div>
+                <div id="collapseFive" class="accordion-collapse collapse {{ (app.request.get('_route') == 'app_admin_actus')? 'show' : '' }}" aria-labelledby="headingFive"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div>
+                            <a href="{{ path('app_admin_actus') }}" class="btn">Gestion des actualités</a>
+                        </div>
+                        <div>
+                            <a href="{{ path('app_admin_newactu') }}" class="btn">Ajouter une actualités</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

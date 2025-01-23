@@ -1,0 +1,14 @@
+
+    {% if (course.isPublished == 1) %}
+
+        <div class="col-12 col-md-3   border-1   ">
+            <a href="{{ path('app_course',{ slug:course.slug }) }} " class="text-decoration-none">
+                <img src="{{ asset('images/courses/' ~ course.image) }}"
+                     class="nav-img border-primary rounded-2 p-1 my-bg-{{ course.color.name }}"
+                     alt="...">
+                <p class="text-white h5	d-none d-md-block  px-2 "> {{ course.name|title }} </p>
+            </a>
+        </div>
+
+
+    {% endif %}

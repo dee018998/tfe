@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+{% block header %}
+    {% include 'partials/header.html.twig' %}
+{% endblock %}
+{#   {% use 'partials/course/best.html.twig' %} #}
+{# {% use "blocks.html.twig" %} #}
+{# {% include('partials/course/best.hmtl.twig')%} #}
+{% block content %}
+    {{ parent() }}
+    <section id="bst-course " class="mb-5">
+        <h2 class="text-center h5 ">BEST SELLING</h2>
+        <h3 class="text-center display-2 fw-bold text-white">Dj Courses</h3>
+        {#       {{ render(controller('App\\Controller\\CourseController::courseBst')) }} #}
+
+
+        <div class="container rounded-5  bg-dark ">
+
+            <div class="row  align-items-top justify-content-center">
+                {% for course in courses %}
+
+                    <div class="col-8 col-md-6 col-lg-4 col-xl-3 course-card  p-4">
+                        <a href="{{ path('app_course',{ slug:course.slug }) }}" class="text-decoration-none">
+                            <div class="card rounded-3 border-1 border-secondary rounded-5  bg-dark p-3 ">
+                                <div class="course-img-frm  my-bg-{{ course.color.name }} rounded-5 ">
+                                    <img src="{{ asset('images/courses/' ~ course.image) }}"
+                                         class="course-img border-primary  "
+                                         alt="...">
+
+                                    {#
+                                    <h2 class="text-white h6	d-none d-md-block mx-3 border-start border-2 ps-2"> {{ course.name|capitalize|u.truncate(30, '...', false) }} </h2>
+                                    #}
+                                </div>
+
+                                <div class="mt-3">
+                                    <h2 class="text-white h5 font-weight-bold	d-none d-md-block   ps-2"> {{ course.name| title |u.truncate(30, '...', false) }} </h2>
+
+                                    <a class="btn btn-outline-light rounded-2 btn-sm"
+                                       href="{{ path('app_courses_category', {category:course.category.id}) }}">{{ course.category.name }}</a>
+                                    <a class="btn btn-outline-light rounded-2 btn-sm"
+                                       href="{{ path('app_courses_level', {level:course.level.id}) }}">{{ course.level.name }}</a>
+                                    <button class="btn btn-outline-light rounded-2 btn-sm ">{{ course.duration }}h
+                                    </button>
+
+                                    <h5 class="text-white  d-sm-block d-md-none	 h1 mt-3"> {{ course.name|capitalize|u.truncate(80, '...', false) }} </h5>
+
+                                    <div class="d-flex flex-row justify-content-start mt-4 text-white ">
+                                {#        {% set total = 0 %}
+                                        {% for comment in course.comments %}
+                                            {% set total = total + comment.rating %}
+                                        {% endfor %}
+                                        {% if course.comments|length %}
+                                            {% set avg = total / course.comments|length %}
+
+                                            <p class="me-3"> {{ avg|format_number({fraction_digit: 1}) }} </p>
+                                            <p>{{ avg|rating(5, "fa-norm") }} </p>   <p class="ms-3">
+                                            ({{ course.comments|length }} )</p>
+
+                                        {% else %}
+                                            {% set avg = 0 %}
+                                            <p>{{ avg|rating(5, "fa-norm") }}</p>
+                                            <p>{{ course.comments|length }} </p>
+                                        {% endif %}#}
+                                        {% include '/fragment/_course_comment_avg.html.twig' %}
+                                    </div>
+                                    <p class="h2 text-white">{{ course.price }}€</p>
+                                </div>
+
+                            </div>
+
+
+                        </a>
+
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+    <section id="our-school" class="bg-primary">
+        <h2 class="text-center h5 ">WHO ARE WE ?</h2>
+        <h3 class="text-center display-2 fw-bold text-white">Online Dj School</h3>
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-8 col-lg-5">
+                    <iframe class="you-vid rounded-3" width="560" height="315"
+                            src="https://www.youtube.com/embed/4__v5qnvb1k?si=HytA_X08R2asOCZf"
+                            title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <section id="testimomial">
+
+        <h2 class="text-center h5 ">WHAT OUR STUDENTS SAYS</h2>
+        <h3 class="text-center display-2 fw-bold text-white">Testimonials</h3>
+
+
+
+        <div class="container">
+
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+
+
+                    {% for key, comment in comments %}
+
+
+
+                        {% if (key == 0 or key % 2 == 0) %}
+                            <div class="carousel-item {{ (key == 0)? 'active' : '' }} ">
+                            <div class="row  align-items-top justify-content-center   carousel-div1">
+                        {% endif %}
+
+                        <div class="bg-primary col-sm-12 col-md-6 col-lg-4 m-2 rounded-2">
+
+
+                            <div class="bg-primary my-2 p-3 ">
+                                <p class="">{{ comment.user.firstName|capitalize }} {{ comment.user.lastName|capitalize }} </p>
+                                <p class=" ">{{ comment.content }}</p>
+                            </div>
+                        </div>
+
+                                {% if (key % 2  and key !=0 ) %}
+                            </div>
+                            </div>
+                    {% endif %}
+
+
+                    {% if (comments|length) % 2 != 0  %}
+            </div>
+            {% endif %}
+
+
+
+                    {% endfor %}
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <h4 class="text-center h5 ">HAPPY CUSTOMERS</h4>
+            <div class="container d-flex align-item-center justify-content-center h3">
+                {{ render(controller('App\\Controller\\CommentController::allRating')) }}
+            </div>
+
+
+    </section>
+    <section id="our-team" class=" bg-primary">
+        <h2 class="text-center h5 ">LEARN</h2>
+        <h3 class="text-center display-2 fw-bold text-white">We Teach</h3>
+
+            <div class="row  align-items-top justify-content-center ">
+
+                <div class=" col-sm-12 col-md-6 col-lg-4 px-5">
+        <img src="{{ asset('/images/team_pic.png')}}" alt="our team in the studio" class="img-fluid rounded-2">
+        </div>
+                </div>
+
+    </section>
+
+{% endblock %}
+
+
+
+
+
+

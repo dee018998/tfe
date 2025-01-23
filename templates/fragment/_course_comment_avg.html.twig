@@ -1,0 +1,16 @@
+                                        {% set total = 0 %}
+                                        {% for comment in course.comments %}
+                                            {% set total = total + comment.rating %}
+                                        {% endfor %}
+                                        {% if course.comments|length %}
+                                            {% set avg = total / course.comments|length %}
+
+                                            <p class="me-3"> {{ avg|format_number({fraction_digit: 1}) }} </p>
+                                            <p>{{ avg|rating(5, "fa-norm") }} </p>
+                                            <p class="ms-3">
+                                            ({{ course.comments|length }} )</p>
+
+                                        {% else %}
+                                            {% set avg = 0 %}
+                                            <p>There are no comments for this course</p>
+                                        {% endif %}

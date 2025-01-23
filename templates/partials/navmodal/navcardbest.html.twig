@@ -1,0 +1,10 @@
+
+<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+    <div class="row mt-3">
+        {% for course in courses %}
+            {% if (course.isPublished == 1) %}
+                {{ include('/partials/navmodal/navcardtemplate.html.twig',)}}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

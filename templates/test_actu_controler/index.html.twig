@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actu index{% endblock %}
+
+{% block body %}
+    <h1>Actu index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>CreatedAt</th>
+                <th>Content</th>
+                <th>Slug</th>
+                <th>Image</th>
+                <th>UpdatedAt</th>
+                <th>IsPublished</th>
+                <th>PublishedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for actu in actus %}
+            <tr>
+                <td>{{ actu.id }}</td>
+                <td>{{ actu.name }}</td>
+                <td>{{ actu.createdAt ? actu.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ actu.content }}</td>
+                <td>{{ actu.slug }}</td>
+                <td>{{ actu.image }}</td>
+                <td>{{ actu.updatedAt ? actu.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ actu.isPublished ? 'Yes' : 'No' }}</td>
+                <td>{{ actu.publishedAt ? actu.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_test_actu_controler_show', {'id': actu.id}) }}">show</a>
+                    <a href="{{ path('app_test_actu_controler_edit', {'id': actu.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_test_actu_controler_new') }}">Create new</a>
+{% endblock %}

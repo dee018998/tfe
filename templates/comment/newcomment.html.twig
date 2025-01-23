@@ -1,0 +1,21 @@
+
+
+{% block title %}Nouveau commentaire{% endblock %}
+{% block body %}
+    <section class="col p-3 mt-2">
+        <div class="row">
+            <h2 class="col-10">Ajoutez votre commentaire</h2>
+            <div class="col">
+                <a href="" class="btn btn-outline-light ">Retour</a>
+
+            </div>
+        </div>
+        {{ form_start(form) }}
++
+        {{ form_widget(form) }}
+        <input type="submit" value="Ajouter" class="btn btn-secondary">
+        {{ form_end(form) }}
+
+
+    </section>
+{% endblock %}

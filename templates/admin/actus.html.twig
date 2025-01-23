@@ -1,0 +1,71 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Admin Actus{% endblock %}
+
+{% block body %}
+
+    <section class="col bg-dark m-2 rounded-2">
+
+        <h2 class="">Gestion des Actualités</h2>
+        <a href="{{ path('app_admin_newactu') }}" class="btn btn-outline-dark"><i class="icofont-plus">Ajouter une actualité</i> </a>
+        {# total items count #}
+
+        <table class="table table-hover my-2 ">
+            {#<thead>#}
+            <tr>
+                <th>Image</th>
+                <th{% if actus.isSorted('Titre') %} class="sorted" {% endif %}>
+                    {{ knp_pagination_sortable(actus, 'Titre', 'name') }}
+                </th>
+                <th{% if actus.isSorted('Dare de publication') %} class="sorted" {% endif %}>
+                    {{ knp_pagination_sortable(actus, 'Date de publication', 'createdAt') }}
+                </th>
+                    <th>Content</th>
+
+
+                <th{% if actus.isSorted('Active') %} class="sorted" {% endif %}>
+                    {{ knp_pagination_sortable(actus, 'Active', 'isPublished') }}
+                </th>
+
+                <th class="">Action</th>
+            </tr>
+          {#  </thead>#}
+          {#  <tbody>#}
+            {% for actu in actus %}
+                <tr {% if loop.index is odd %}class="color"{% endif %} >
+                    <td>
+                        <img class="ico course-img" src="{{ asset('images/actus/' ~ actu.image) }}"
+                             alt="Card image cap"></td>
+                    <td>{{ actu.name|capitalize|u.truncate(20, '...', false)  }}</td>
+                    <td>{{ actu.createdAt|date('d/m/Y') }}</td><td>{{ actu.content|u.truncate(30, '...', false)  }}</td>
+
+
+                    <td>   <a href="viewactu/ {{ actu.id }}">
+
+                            {% if (actu.isPublished) %}
+                                <i class="icofont-eye text-success"></i>
+                            {% else %}
+                                <i class="icofont-eye-blocked text-danger"></i>
+                            {% endif %}
+                        </a>
+                    </td><td>
+                            <a href="delactu/{{ actu.id }}"><i class="icofont-trash"></i></a>
+                            <a href="editactu/{{ actu.id }}" class="mx-2"><i class="icofont-edit-alt"></i></a>
+                            <a href="{{ path('app_admin_newactu') }}" class="mx-2"><i class="icofont-plus"></i></a>
+
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+         {#   </tbody>#}
+        </table>
+        <div class="mt-2 ">
+            {{ knp_pagination_render(actus) }}
+        </div>
+    </section>
+
+
+{% endblock %}
+

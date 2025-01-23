@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dj-school : contact{% endblock %}
+{% block header %}
+    {% include 'partials/connect_header.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <main class="container mb-5">
+    <section class="row ">
+        <div class=" col-sm-12 col-md-8  offset-md-2 bg-black rounded-5 p-5 text-white">
+            <h2 class="display-4">Nous contacter</h2>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" class="btn btn-primary" value="envoyer">
+            {{ form_end(form) }}
+        </div>
+    </section>
+    </main >
+{% endblock %}

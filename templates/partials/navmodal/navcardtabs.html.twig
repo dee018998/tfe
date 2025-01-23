@@ -1,0 +1,23 @@
+{% for item in items %}
+    <div class="tab-pane fade" id="pills-{{ item.name }}" role="tabpanel"
+         aria-labelledby="pills-{{ item.name }}-tab" tabindex="0">...
+        <div class="row ">
+            {% for course in item.course %}
+
+                {{ include('partials/navmodal/navcardtemplate.html.twig',)}}
+
+
+            {% endfor %}
+        </div>
+    </div>
+    {#
+    <a class="btn btn-outline-warning rounded-pill  ms-1 col mb-2" href="{{ path('app_courses_nav_category', {category:category.id}) }}">{{ category.name }}</a>
+    #}
+    {# <div class="row">       {% for course in category.course %}
+         <div class="col-3">
+             <p>{{ course.name }}</p>
+         </div>
+
+     {% endfor %}</div> #}
+
+{% endfor %}

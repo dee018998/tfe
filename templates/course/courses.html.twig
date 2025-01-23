@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Our Courses{% endblock %}
+{% block header %}
+    {% include 'partials/courses-header.html.twig' %}
+{% endblock %}
+{% block content %}
+    {{ parent() }}
+
+ {#   <div class="container-fluid mt-2 bg-light pb-2">
+        <h1 class="display-4">Liste des Formations</h1>
+
+        <a class="btn btn-outline-dark rounded-pill" href="{{ path('app_courses') }}">Tout</a>
+
+        {{ render(controller('App\\Controller\\CategoryController::categories')) }}
+        {{ render(controller('App\\Controller\\LevelController::levels')) }}
+        <div class="row my-4">
+            {% for course in courses %}
+                <div class="card course-card ms-3 " style="width: 17rem;">
+                    <img class=" card-img-top mt-3"
+                         src="{{ asset('images/courses/' ~ course.image) }}"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        #}{#                       <h6 class="btn btn-outline-dark "> #}{#
+                        <a class="btn btn-outline-dark rounded-5 btn-sm"
+                           href="{{ path('app_courses_cat', {category:course.category.id}) }}">{{ course.category.name }}</a>
+                        <a class="btn btn-outline-dark rounded-5 btn-sm"
+                           href="{{ path('app_courses_lev', {level:course.level.id}) }}">{{ course.level.name }}</a>
+                        <h5 class="mt-3"> {{ course.name|capitalize|u.truncate(15, '...', false) }} </h5>
+                        #}{#       <p class="card-text">{{ course.smallDescription|u.truncate(30, '...', false) }}</p> #}{#
+                        <a href="{{ path('app_course', { slug:course.slug }) }}"
+                           class="text-decoration-none link-secondary">En savoir
+                            plus...</a>
+                        #}{#     {% if is_granted('ROLE_USER') %} #}{#
+
+                        <a href=" {{ path ('app_cart_addcourse', {'id':course.id}) }}"
+                           class="text-decoration-none link-secondary btn btn-outline-primary rounded-5 mt-3 btn-sm">Ajoutez
+                            au panier</a>
+                        #}{#     {% endif %} #}{#
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+        <div class="m-2">
+            {{ knp_pagination_render(courses) }}
+        </div>
+    </div>
+
+#}
+
+<div class="bg-primary">
+    <div class="container     p-5 ">
+        <div class="container rounded-5  bg-dark p-5">
+            <div class="row ">
+                <a class="btn btn-outline-light border-light rounded-pill col mb-2" href="{{ path('app_courses') }}">All</a>
+
+                {{ render(controller('App\\Controller\\CategoryController::categories')) }}
+                {{ render(controller('App\\Controller\\LevelController::levels')) }}
+            </div>
+
+            <div class="row  align-items-top justify-content-center">
+                {% for course in courses %}
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-3 course-card  p-4">
+                        <a href="{{ path('app_course',{ slug:course.slug }) }}" class="text-decoration-none">
+                            <div class="card rounded-3 border-1 border-secondary rounded-5  bg-dark p-3 ">
+                                <div class="course-img-frm  my-bg-{{ course.color.name}} rounded-5 ">
+                                    <img src="{{ asset('images/courses/' ~ course.image) }}"
+                                         class="course-img border-primary  "
+                                         alt="...">
+
+{#
+                                    <h2 class="text-white h6	d-none d-md-block mx-3 border-start border-2 ps-2"> {{ course.name|capitalize|u.truncate(30, '...', false) }} </h2>
+#}
+                                </div>
+
+                                <div class="mt-3">
+                                    <h2 class="text-white h5 font-weight-bold	d-none d-md-block   ps-2"> {{ course.name| title |u.truncate(30, '...', false) }} </h2>
+
+                                    <a class="btn btn-outline-light rounded-2 btn-sm"
+                                       href="{{ path('app_courses_category', {category:course.category.id}) }}">{{ course.category.name }}</a>
+                                    <a class="btn btn-outline-light rounded-2 btn-sm"
+                                       href="{{ path('app_courses_level', {level:course.level.id}) }}">{{ course.level.name }}</a>
+                                    <button class="btn btn-outline-light rounded-2 btn-sm ">{{ course.duration }} h</button>
+
+                                    <h5 class="text-white  d-sm-block d-md-none	 h1 mt-3"> {{ course.name|capitalize|u.truncate(80, '...', false) }} </h5>
+
+                                    <div class="d-flex flex-row justify-content-start mt-4 text-white ">
+                                        {% set total = 0 %}
+                                        {% for comment in course.comments %}
+                                            {% set total = total + comment.rating %}
+                                        {% endfor %}
+                                        {% if course.comments|length %}
+                                            {% set avg = total / course.comments|length %}
+
+                                            <p class="me-3"> {{ avg|format_number({fraction_digit: 1}) }} </p>
+                                            <p>{{ avg|rating(5, "fa-norm") }} </p>   <p class="ms-3">
+                                            ({{ course.comments|length }} )</p>
+
+                                        {% else %}
+                                            {% set avg = 0 %}
+                                            <p>{{ avg|rating(5, "fa-norm") }}</p>
+                                            <p>{{ course.comments|length }} </p>
+                                        {% endif %}
+
+                                    </div>
+                                    <p class="h2 text-white">{{ course.price }}€</p>
+                                </div>
+
+                            </div>
+
+
+                        </a>
+
+
+                    </div>
+                {% endfor %}
+            </div>
+            <div class=" pb-4 text-center ">
+                {{ knp_pagination_render(courses) }}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

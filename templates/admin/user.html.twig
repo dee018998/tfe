@@ -1,0 +1,77 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Admin Courses{% endblock %}
+
+{% block body %}
+
+    <div class="col bg-light m-2 rounded-2 p-3">
+<div class="d-flex justify-content-between">
+    <h2 class="">Gestion des utilisateurs</h2>
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <a href="{{ path('app_admin_team') }}" class="btn btn-secondary">Afficher la team</a>
+    {% endif %}</div>
+
+
+        <table class="table table-hover my-2 ">
+            <thead>
+            <tr>
+                <th{% if users.isSorted('Nom') %} class="sorted" {% endif %}>
+                    {{ knp_pagination_sortable(users, 'Nom', 'lastName') }}
+                </th>
+                <th{% if users.isSorted('Prénom') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(users, 'Prénom', 'firstName') }}
+                </th>
+                <th{% if users.isSorted('email') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(users, 'email', 'email') }}
+                </th>
+
+                <th>Roles</th>
+                <th class="">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.lastName }}</td>
+                   <td>{{ user.firstName}}</td>
+                     <td>{{ user.email }}</td>
+                  <td>{{ user.roles|join(', ', ' and ')  }}</td>
+
+
+                   <td>
+                           {% if not user.isDisabled %}
+                       <i class="icofont-trash text-light"></i>
+                       <a href="disable/{{ user.id }}"><i class="icofont-user text-success"></i></a>
+                           <a href="promuser/{{ user.id }}" class="mx-2"><i class="icofont-magic text-success"></i></a>
+                           {% else %}
+                               <a href="delete/{{ user.id }}"><i class="icofont-trash text-danger"></i></a>
+                           <a href="disable/{{ user.id }}"><i class="icofont-plus text-danger"></i></a>
+                               <i class="icofont-magic text-light"></i>
+                           {% endif %}
+
+
+                       {#
+
+
+                        <a href="viewcourse/{{ course.id }}">
+
+                            {% if (course.isPublished) %}
+                                <i class="icofont-eye text-success"></i>
+                            {% else %}
+                                <i class="icofont-eye-blocked text-danger"></i>
+                            {% endif %}
+                        </a>
+                        <a href="{{ path('app_admin_newcourse') }}" class="mx-2"><i class="icofont-plus"></i></a> #}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_register') }}" class="btn btn-outline-dark">Ajouter un nouvel utilisateur</a>
+
+    </div>
+    <div class="mt-2 ">
+        {{ knp_pagination_render(users) }}
+    </div>
+
+{% endblock %}

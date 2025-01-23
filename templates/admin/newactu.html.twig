@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Nouvel news{% endblock %}
+{% block body %}
+    <section class="col-md-6">
+        <div class="row">
+            <h2 class="col-10">Ajoutez une New</h2>
+            <div class="col">
+                <a href="{{ path('app_admin_actus') }}" class="btn btn-outline-dark">Retour</a>
+            </div>
+        </div>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Ajouter" class="btn btn-secondary">
+        {{ form_end(form) }}
+
+
+    </section>
+{% endblock %}

@@ -1,0 +1,30 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %} DJ-school : Sign in {% endblock %}
+{% block header %}
+    {% include 'partials/connect_header.html.twig' %}
+{% endblock %}
+{% block content %}
+    <main class="container mb-5">
+
+            <section class="row ">
+                <div class=" col-sm-12 col-md-8  offset-md-2 bg-black rounded-5 p-5 text-white">
+                    <h2 class="h1">Register</h2>
+
+                    {{ form_errors(registrationForm) }}
+
+                    {{ form_start(registrationForm) }}
+
+                    {{ form_widget(registrationForm) }}
+
+                    <button type="submit" class="btn btn-primary ">Submit</button>
+                    {{ form_end(registrationForm) }}
+
+                </div>
+            </section>
+
+
+    </main >
+
+{% endblock %}

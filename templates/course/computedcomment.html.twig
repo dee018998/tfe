@@ -1,0 +1,11 @@
+
+
+{% block body %}
+{% set total = 0 %}
+{% for comment in course.comments %}µ
+{% set total = total + comment.rating %}
+{% endfor %}
+
+{% set avg = total / course.comments|length %}
+<p>{{ avg|rating }}</p>
+{% endblock %}

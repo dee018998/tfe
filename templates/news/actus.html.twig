@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ActuController!{% endblock %}
+{% block header %}
+    {% include 'partials/header.html.twig' %}
+{% endblock %}
+{% block content %}
+
+
+ <div class="container">
+     <div class="row my-5 align-items-top justify-content-center  px-5">
+         {% for actu in actus %}
+         <div class="card actu-card col-12 col-md-6 col-lg-4 bg-transparent border-0 px-5 my-3">
+             <a href="" class="text-decoration-none">
+             <img src="{{ asset('images/actus/' ~ actu.image) }}"
+                  class="card-img-top rounded-3 actu-img "
+                  alt="...">
+
+             <div class="card-body   text-start py-4 bg-transparent">
+                 <h5 class="text-white">{{ actu.name|capitalize|u.truncate(40, '...', false) }}</h5>
+
+                 {# <p>  {{ actu.content  }})</p> #}
+                 {#                <p class="card-text">{{ actu.content|u.truncate(100, '...')}}</p> #}
+             </div>
+             </a>
+
+         </div>
+         {% endfor %}
+         <div class="mt-2 ps-5 text-right">
+             {{ knp_pagination_render(actus) }}
+         </div>
+     </div>
+
+ </div>
+
+
+{% endblock %}

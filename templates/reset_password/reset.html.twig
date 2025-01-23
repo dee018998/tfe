@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+{% block header %}
+    {% include 'partials/connect_header.html.twig' %}
+{% endblock %}
+
+{% block content %}
+<main class="container mb-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 bg-black p-5 rounded-5">
+
+    <h2 class="display-4 my-3  h1">Reset your password</h2>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="btn btn-primary">Reset password</button>
+    {{ form_end(resetForm) }}
+            </div>
+        </div>
+</main>
+{% endblock %}

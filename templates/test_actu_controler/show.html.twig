@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actu{% endblock %}
+
+{% block body %}
+    <h1>Actu</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ actu.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ actu.name }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ actu.createdAt ? actu.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ actu.content }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ actu.slug }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ actu.image }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ actu.updatedAt ? actu.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IsPublished</th>
+                <td>{{ actu.isPublished ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>PublishedAt</th>
+                <td>{{ actu.publishedAt ? actu.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_test_actu_controler_index') }}">back to list</a>
+
+    <a href="{{ path('app_test_actu_controler_edit', {'id': actu.id}) }}">edit</a>
+
+
+{% endblock %}

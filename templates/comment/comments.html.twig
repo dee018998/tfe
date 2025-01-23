@@ -1,0 +1,13 @@
+
+
+{% block title %}Hello Comment{% endblock %}
+
+{% block body %}<h1>Comments</h1>
+{#    {% for comment in comments %}
+
+
+    <h2>{{ comment.course.name }}</h2>
+    <h3>{{ comment.user.name }}</h3>
+    <p>{{ comment.content }} </p>
+    {% endfor %} #}
+{% endblock %}
