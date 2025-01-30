@@ -101,6 +101,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $lastLogAt = null;
 
+    #[ORM\Column]
+    private bool $isVerified = false;
+
     /**
      * @var Collection<int, Course>
      */
@@ -361,6 +364,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeCourse(Course $course): static
     {
         $this->course->removeElement($course);
+
+        return $this;
+    }
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

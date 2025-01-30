@@ -20,7 +20,7 @@ class AdminCommentController extends AbstractController
     #[Route('/admin/comment', name: 'app_admin_comment')]
     public function comment(CommentRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
-        $comments = $repository->findBy([], ['createdAt' => 'DESC']);
+        $comments = $repository->findBy([], ['createdAt' => 'DESC'], );
         $comments = $paginator->paginate($comments,
             $request->query->getInt('page', 1),
             12

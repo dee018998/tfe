@@ -23,7 +23,7 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $user = new User();
             $gender = $faker->randomElement($this->genders);
             $user->setFirstName($faker->firstName($gender))
@@ -33,12 +33,46 @@ class UserFixtures extends Fixture
                 ->setUpdatedAt(new \DateTimeImmutable())
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
                 ->setRoles(['ROLE_USER'])
-                ->setDisabled($faker->boolean(75));
+                ->setDisabled($faker->boolean(5))
+                ->setVerified(true);
             $gender = ($gender == 'male') ? 'm' : 'f';
             $user->setImage('0' . ($i + 10) . $gender . '.jpg');
             $manager->persist($user);
         }
 
+
+
+
+        $admin = new User();
+        $gender = $faker->randomElement($this->genders);
+        $admin->setFirstName('Admin')
+            ->setLastName('Smeers')
+            ->setEmail('ad@min.be')
+            ->setCreatedAt(new \DateTimeImmutable())
+            ->setUpdatedAt(new \DateTimeImmutable())
+            ->setPassword($this->hasher->hashPassword($admin, 'password'))
+            ->setRoles(['ROLE_ADMIN'])
+            ->setDisabled(false)
+            ->setVerified(true);
+        $gender = ($gender == 'male') ? 'm' : 'f';
+        $admin->setImage('075' . $gender . '.jpg');
+        $manager->persist($admin);
+
+        $user = new User();
+        $gender = $faker->randomElement($this->genders);
+        $user->setFirstName('User')
+            ->setLastName('Smeers')
+            ->setEmail('us@er.be')
+            ->setCreatedAt(new \DateTimeImmutable())
+            ->setUpdatedAt(new \DateTimeImmutable())
+            ->setPassword($this->hasher->hashPassword($user, 'password'))
+            ->setRoles(['ROLE_USER'])
+            ->setDisabled(false)
+            ->setVerified(true);
+        $gender = ($gender == 'male') ? 'm' : 'f';
+        $user->setImage('076' . $gender . '.jpg');
+        $manager->persist($user);
         $manager->flush();
     }
+
 }

@@ -6,6 +6,7 @@ use App\Entity\Actu;
 
 use App\Entity\Family;
 use App\Repository\ActuRepository;
+use App\Repository\FamilyRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,14 +39,15 @@ class ActuController extends AbstractController
         ]);
     }
 
-        #[Route('/news/family/{family}', name: 'app_actu_family')]
-    public function actufam(Family $family, ActuRepository $repository, Request $request,PaginatorInterface $paginator): Response
+       #[Route('/news/family/{family}', name: 'app_actu_family')]
+    public function actufam(Family $family, ActuRepository $repository, Request $request,PaginatorInterface $paginator, ): Response
     {
        $actu = $repository->findBy([
            'family' => $family,
            'isPublished' => true,
            ],
-           ['createdAt' => 'DESC'],
+           ['createdAt' => 'DESC']
+
        );
         $pagination = $paginator->paginate($actu, $request->query->getInt('page',1),
             9
@@ -55,4 +57,5 @@ class ActuController extends AbstractController
             'actus' => $pagination,
         ]);
     }
+
 }
