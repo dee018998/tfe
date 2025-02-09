@@ -1,0 +1,60 @@
+{% block header %}
+    <header>
+        {# NAV BAR#}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light rounded-2 pe-5">
+
+            <div class="collapse navbar-collapse justify-content-end
+             " id="navbarNavDropdown">
+                {# NAV BAR ITEMS#}
+                <ul class="navbar-nav">
+
+                    {% if not app.user %}
+                        {#   ITEM  #}
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-dark btn-sm m-2" href="{{ path('app_login') }}"><i
+                                        class="icofont-user"></i>S'identifier</a>
+                        </li>
+                        {#   ITEM  #}
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-dark btn-sm m-2" href="{{ path('app_register') }}"><i
+                                        class="icofont-ui-add"></i>
+                                S'enregistrer</button>
+                        </li>
+                    {% else %}
+                        {#   ITEM  #}
+                        {#    DROP DOWN MENU    #}
+                        <li class="nav-item dropdown">
+                            <button class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                {% if not app.user.image %}
+                                    <img src="{{ asset('images/default/default.jpg') }}"
+                                         class="img-avatar"
+                                         alt="User image">
+                                {% else %}
+                                    <img src="{{ asset('/images/avatar/' ~ app.user.image)  }}"
+                                         class="img-avatar"
+                                         alt="User image">
+                                {% endif %}   {{ app.user.firstName|capitalize }} {{
+                                app.user.lastName|capitalize }}
+
+                            </button>
+                            {#    DROP DOWN ITEMS    #}
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ path('app_user_profil') }}">Mon profil</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_user_edituser',{'id':app.user.id} ) }}">Modifiez mon profil</a></li>
+                                <li><div class="dropdown-divider"></div></li>
+                                <li><a class="dropdown-item" href="{{ path('app_home') }}">Front view</a></li>
+                                <li><div class="dropdown-divider"></div></li>
+                                <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
+
+                            </ul>
+                        </li>
+                        {#   END DROP DOWN#}
+                    {% endif %}
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+
+{% endblock header %}

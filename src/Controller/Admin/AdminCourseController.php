@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminCourseController extends AbstractController
@@ -18,6 +19,7 @@ class AdminCourseController extends AbstractController
     public function __construct(private readonly SluggerInterface $slugger) {
     }
     #[Route('/admin/course', name: 'app_admin_course')]
+    #[IsGranted('ROLE_ADMIN')]
     public function courses(CourseRepository $repository, PaginatorInterface $paginator,Request $request): Response
     {
         $data = $repository->findBy(
@@ -35,6 +37,7 @@ class AdminCourseController extends AbstractController
         ]);
     }
     #[Route('/admin/newcourse', name: 'app_admin_newcourse')]
+    #[IsGranted('ROLE_ADMIN')]
     public function newCourse(Request $request, EntityManagerInterface $manager): Response
     {
         $course = new Course();
@@ -70,6 +73,7 @@ class AdminCourseController extends AbstractController
     }
 
     #[Route('/admin/editcourse/{id}', 'app_admin_editcourse')]
+    #[IsGranted('ROLE_ADMIN')]
     public function editCourse(Course $course, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(CourseFormType::class, $course);
@@ -90,6 +94,7 @@ class AdminCourseController extends AbstractController
         ]);
     }
     #[Route('/admin/viewcourse/{id}', 'app_admin_viewcourse')]
+    #[IsGranted('ROLE_ADMIN')]
     public function viewCourse(Course $course, Request $request, EntityManagerInterface $manager): Response
     {
 
@@ -101,6 +106,7 @@ class AdminCourseController extends AbstractController
     }
 
     #[Route('/admin/delcourse/{id}', name: 'app_admin_delcourse')]
+    #[IsGranted('ROLE_ADMIN')]
     public function delCourse(EntityManagerInterface $manager, Course $course): Response
     {
         $manager->remove($course);

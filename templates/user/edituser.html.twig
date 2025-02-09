@@ -1,23 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Profil : Editer{% endblock %}
-{% block body %}
-    <section class="row">
-        <div class="col-md-6 offset-3">
+{% block content %}
+{#    {{ render ( path('app_user_profil') ) }}#}
             <h2 class="display-4">Modifiez mon profil</h2>
             {{ form_start(form) }}
+
             {{ form_widget(form) }}
             <div class="d-flex justify-content-between">
                 <input type="submit" value="Ajouter" class="btn btn-outline-dark">
-                <div>
+{#                <div>
                     <a href="{{ path('app_user_profil') }}" class="btn btn-outline-dark">Mon profil</a>
                     <a href="{{ path('app_logout') }}" class="btn btn-outline-dark">Se déconnecter</a>
-                </div>
+                </div>#}
             </div>
             {{ form_end(form) }}
 
-        </div>
-    </section>
+
 {% endblock %}
 
 

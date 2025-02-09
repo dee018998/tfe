@@ -41,7 +41,12 @@ class UserProfilController extends AbstractController
                     'success',
                     'Votre profil a été mise à jour'
                 );
-                return $this->redirectToRoute('app_user_profil');
+                if($this->getUser()->getRoles()[0] == 'ROLE_USER'){
+                    return $this->redirectToRoute('app_user_profil');
+                }
+                if($this->getUser()->getRoles()[0] == 'ROLE_CLIENT'){
+                    return $this->redirectToRoute('app_client');
+                }
             }
             return $this->render('user/edituser.html.twig', [
                 'form' => $form,

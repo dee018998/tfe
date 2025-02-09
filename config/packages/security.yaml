@@ -50,11 +50,14 @@ security:
          - { path: ^/admin/team, roles: ROLE_SUPER_ADMIN }
          - { path: ^/admin/user, roles: ROLE_SUPER_ADMIN }
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/moderator, roles: ROLE_MOD }
+         - { path: ^/moderator, roles: ROLE_MODERATOR }
+         - { path: ^/client, roles: ROLE_CLIENT }
          - { path: ^/user, roles: ROLE_USER }
 
     role_hierarchy:
-             ROLE_ADMIN: ROLE_USER
+             ROLE_CLIENT: ROLE_USER
+             ROLE_COMMENT_ADMIN: ROLE_USER
+             ROLE_ADMIN: [ ROLE_MODERATOR, ROLE_USER ]
              ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
 when@test:

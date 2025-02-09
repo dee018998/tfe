@@ -61,7 +61,14 @@ h2 {
     background-size: cover;
 
 }
+.banner-client-img {
 
+    height: 400px;
+    background: url("../images/banner-client-img.png") no-repeat center center;
+
+    background-size: cover;
+
+}
 
 .courseheader-section {
 
@@ -148,7 +155,9 @@ form {
 }
 
 .profil-img {
-    height: 150px;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
 }
 
 iframe {

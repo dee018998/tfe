@@ -93,7 +93,9 @@ class UserCartController extends AbstractController
 
             $course = $this->repository->find($id);
             $user->addCourse($course);
+            $course->addUser($user);
            $manager->persist($user);
+           $manager->persist($course);
             $manager->flush();
 
 

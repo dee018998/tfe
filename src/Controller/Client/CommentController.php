@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\User;
+namespace App\Controller\Client;
 
 use App\Entity\Comment;
 use App\Entity\User;
@@ -18,16 +18,17 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CommentController extends AbstractController
 {
-    #[Route('/user/comment', name: 'app_user_comment')]
+    #[Route('/client/comment', name: 'app_user_comment')]
     public function Comments(): Response
     {
 
         return $this->render('comment/comments.html.twig',);
     }
 
-    #[Route('/user/newcomment/{id}', name: 'app_user_newcomment')]
+    #[Route('/client/newcomment/{id}', name: 'app_client_newcomment')]
     public function newComment( CourseRepository $repo, Request $request, EntityManagerInterface $manager, CommentRepository $repository, $id): Response
     {
+
         /* $crs = $repo->findBy(['id'=>$id],[]);*/
         /*dd($crs);*/
         /*     $user = $this->getUser();*/
@@ -39,53 +40,62 @@ class CommentController extends AbstractController
 
 
         $users = $cour->getUsers();
-        if ($users->contains($user)){
-          /*  dd( 'true');
-            $comments = $cour->getComments();*/
-            /*        $crsid = $crs->getId();
-                   dd($crsid);*/
-            /*        $comments = $this->getComments();
-                    dd($user);*/
-            /*        if ( $users->contains($user)))*/
+
+        /* if ($users->contains($user)) {*/
+
+        /*   $comments = $cour->getComments();
+        /*        $crsid = $crs->getId();
+                dd($crsid);*/
+        /*        $comments = $this->getComments();
+                dd($user);*/
+        if ($users->contains($user)) {
             $usrcom = $repository->findBy(['course' => $id, 'user' => $user], []);
 
             if (!($usrcom)) {
+
                 $comment = new Comment();
                 $form = $this->createForm(CommentFormType::class, $comment);
                 $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
+
+                if ($form->isSubmitted()) {
+
                     $comment->setUser($user)
                         ->setCourse($cour)
-                        ->setCreatedAt(new \DateTimeImmutable());
+                        ->setCreatedAt(new \DateTimeImmutable())
+                        ->setPublished(true)
+                        ->setModarated(false);
                     /* $comment->setCourse($id);*/
                     /*    $comment->setCourse($crs);*/
                     $manager->persist($comment);
                     $manager->flush();
                     //dd($comment);
-                    return $this->redirectToRoute('app_courses');
+                    return $this->redirectToRoute('app_client');
                 }
                 return $this->render('comment/newcomment.html.twig', [
                     'form' => $form,
                 ]);
 
             }
-
-            return $this->render('fragment/_message.html.twig', [
-                'message' => "You already rated this course",
-            ]);
-
-
+            return $this->redirectToRoute('app_home');
         }
+        return $this->redirectToRoute('app_home');
+    }
+/*        return $this->render('fragment/_message.html.twig', [
+            'message' => "You already rated this course",
+        ]);
+    }*/
+
+  /*      }
         return $this->render('fragment/_message.html.twig', [
             'message' => "You don't own this course",
         ]);
 
-    }
+    }*/
 
 
 
 
-    #[Route('/user/editcomment/{id}',name: 'app_user_editcomment')]
+    #[Route('/client/editcomment/{id}',name: 'app_client_editcomment')]
     public function editComment(MailerInterface $mailer ,Comment $comment, Request $request, EntityManagerInterface $manager): Response
     {   $user = $this->getUser();
         if (($comment->getUser()) === $user && !$comment->isModarated() && !$comment->isPublished() ){
@@ -111,12 +121,13 @@ class CommentController extends AbstractController
                 );
                 return $this->redirectToRoute('app_home');
             }
-            return $this->render('user/editcomment.html.twig', [
+            return $this->render('client/editcomment.html.twig', [
                 'form' => $form,
             ]);
         }
         return $this->redirectToRoute('app_home');
-        }
+
+    }
 
 
 

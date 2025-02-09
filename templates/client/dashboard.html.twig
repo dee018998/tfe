@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client : Dashboard{% endblock %}
+{% block header %}
+    {% include 'banners/_banner_client.html.twig' %}
+{% endblock %}
+{# {% block content %} #}
+
+{#    <p>new block</p> #}
+
+{#    {% for course in courses %} #}
+{#     <p>{{ course.name }}</p> #}
+{#    {% endfor %} #}
+{# {% endblock %} #}
+
+{% block content %}
+    {{ parent() }}
+    <section id="bst-course " class="mb-5">
+        <h2 class="text-center display-2 fw-bold text-white">My Courses</h2>
+        {#       {{ render(controller('App\\Controller\\CourseController::courseBst')) }} #}
+
+
+        <div class="container rounded-5  bg-dark ">
+
+            <div class="row  align-items-top justify-content-center">
+                {% for course in courses %}
+
+                    <div class="col-8 col-md-6 col-lg-4 col-xl-3 course-card  p-4">
+                        <a href="{{ path('app_client_course',{ slug:course.slug }) }}" class="text-decoration-none">
+                            <div class="card rounded-3 border-1 border-secondary rounded-5  bg-dark p-3 ">
+                                <div class="course-img-frm  my-bg-{{ course.color.name }} rounded-5 ">
+                                    <img src="{{ asset('images/courses/' ~ course.image) }}"
+                                         class="course-img border-primary  "
+                                         alt="...">
+
+                                    {#
+                                    <h2 class="text-white h6	d-none d-md-block mx-3 border-start border-2 ps-2"> {{ course.name|capitalize|u.truncate(30, '...', false) }} </h2>
+                                    #}
+                                </div>
+
+                                <div class="mt-3">
+                                    <h2 class="text-white h5 font-weight-bold	d-none d-md-block   ps-2"> {{ course.name| title |u.truncate(30, '...', false) }} </h2>
+
+                                    <a class="btn btn-outline-light rounded-2 btn-sm"
+                                       href="{{ path('app_courses_category', {category:course.category.id}) }}">{{ course.category.name }}</a>
+                                    <a class="btn btn-outline-light rounded-2 btn-sm"
+                                       href="{{ path('app_courses_level', {level:course.level.id}) }}">{{ course.level.name }}</a>
+                                    <button class="btn btn-outline-light rounded-2 btn-sm ">{{ course.duration }}h
+                                    </button>
+
+                                    <h5 class="text-white  d-sm-block d-md-none	 h1 mt-3"> {{ course.name|capitalize|u.truncate(80, '...', false) }} </h5>
+
+                                    <div class="d-flex flex-row justify-content-start mt-4 text-white ">
+                                        {% set usercomment = false %}
+                                        {% for comment in course.comments %}
+                                            {% if comment.user == app.user %}
+                                                {{ dump ('true') }}
+                                                {% set usercomment = true %}
+                                                <p>{{ comment.rating|rating(5, "fa-norm") }}</p>
+                                                <p>{{ comment.content }} </p>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if usercomment == false %}
+                                            {% include '/fragment/_course_comment_avg.html.twig' %}
+
+                                        {% endif %}
+                                    </div>
+                                    <p class="h2 text-white">{{ course.price }}€</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="bg-primary">
+        <h2 class="text-center display-2 fw-bold text-white">My Profil</h2>
+        <div class="container ">
+            {{ include ('user/fragments/_profil.html.twig') }}
+        </div>
+
+
+    </section>
+    <section class="container">
+        <h2 class="text-center display-2 fw-bold text-white">My Comments</h2>
+        <div class="row align-items-top justify-content-center">
+            <div class="col col-md-9 ">
+                {% for course in courses %}
+
+                <div class="my-3 bg-primary p-4 rounded-3">
+                    {# ACCES AUX COMMENTAIRES #}
+
+                    <div class=" d-flex  justify-content-between">
+
+                        {% set total = 0 %}
+                        {% set name = 'true' %}
+                        {% set com = null %}
+                        {% for comment in course.comments %}
+                            {% set total = total + comment.rating %}
+                            {% if app.user == comment.user %}
+                                {% set name = false %}
+                                {% set com = comment %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if course.comments|length %}
+                            {% set avg = total / course.comments|length %}
+                            <div>
+                                <h3 class="text-white">{{ course.name|capitalize }}</h3>
+                                <div class="d-flex">
+                                    <p class="me-2">{{ avg|format_number({fraction_digit: 1}) }}</p>{{ avg|rating(5, "fa-norm") }}
+                                    <p> ( {{ course.comments|length }} Users )</p>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div>
+                            <h3 class="text-white">{{ course.name|capitalize }}</h3>
+
+                                <p>No comments.</p>
+                            </div>
+                        {% endif %}
+                        {% if is_granted('ROLE_CLIENT') and name == true %}
+                            <a class="btn btn-outline-light"
+                               href=" {{ ( path('app_client_newcomment', { id:course.id } ) ) }}">Add your comment</a>
+                        {% endif %}
+
+                    </div>
+                    <hr class="hr"/>
+
+                    {% if is_granted('ROLE_CLIENT') and name == false and com.isPublished == true and com.isModarated == false %}
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <p>Your comment</p>
+                                <div class="text-end">
+                                    {{ com.rating|rating(5, "fa") }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class=" ">{{ com.content }}</p>
+
+                    {% elseif is_granted('ROLE_ADMIN') %}
+                        <div><h2>Client profil</h2>
+                        </div>
+                    {% elseif is_granted('ROLE_CLIENT') and name == false and com.isPublished == false and com.isModarated == false %}
+                        <div><a href="{{ path('app_user_editcomment', {id:com.id}) }}"
+                                class="btn btn-outline-dark">Modifiez
+                                mon
+                                commentaire</a>
+                        </div>
+                    {% elseif is_granted('ROLE_CLIENT') and name == false and com.isPublished == false and com.isModarated == true %}
+                        <div>
+                            <h4 class="mt-4">Votre commentaire est en attente d'approbation.</h4>
+                            <h4>Un email vous sera envoyé après analyse de votre commentaire.</h4>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            {% endfor %}
+        </div>
+        </div>
+
+    </section>
+
+{% endblock %}

@@ -1,48 +1,12 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Profil{% endblock %}
 
 {% block content %}
 <main class="container">
-    <section class="row">
-        <div class="col-md-6 offset-3">
-    <div class="row mt-2">
-        <h1>Votre profil</h1>
-        <div class="card  col-9">
-            <div class=" row ">
-                <div class="col  profil-image " style="width: 18rem;"> {% if not app.user.image %}
-                        <img src="{{ asset('images/default/default.jpg') }}"
-                             class="profil-img rounded-2 m-2" alt="User image"
-                             >
-                    {% else %}
-                        <img src="{{ asset('/images/avatar/' ~ app.user.image)  }}"
-                             class="profil-img rounded-2 m-2" alt="User image"
-                             >
-                    {% endif %}
+   {{ include ('user/fragments/_profil.html.twig') }}
 
-                    <h3 class="text-start card-subtitle mb-2 text-muted">Votre email : {{ app.user.email }}</h3>
-                </div>
-                <div class=" col d-flex flex-column justify-content-between" style="width: 18rem;">
-                    <div class="">
-                        <h2 class="card-title mt-2">Prénom : </h2>
-                        <h3> {{ app.user.firstName|capitalize }}</h3></div>
-         <div>
-             <h2 class="card-title">Non : </h2>
-             <h3> {{ app.user.lastName|capitalize }}</h3></div>
-
-                </div>
-            </div>
-        </div>
-        <div class=" col">
-            <a href="{{ path('app_user_edituser',{'id':app.user.id} ) }}" class="btn btn-outline-dark mb-2">Modifier mon profil</a>
-            <a href="{{ path('app_user_editpassword',{'id':app.user.id} ) }}" class="btn btn-outline-dark mb-2">Changer mon mot de passe</a>
-            <a href="{{ path('app_home') }}" class="btn btn-outline-dark mb-2">Retour sur la page d'acceuil</a>
-            <a href="{{ path('app_logout')}}" class="btn btn-outline-dark">Se déconnecter</a>
-        </div>
-    </div>
-
-</div>
-        </section>
 </main>
 
 

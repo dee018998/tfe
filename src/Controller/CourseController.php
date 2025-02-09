@@ -37,17 +37,17 @@ public function courses(CourseRepository $repository, Request $request,Paginator
 
         $course = $repository->findOneBy(['slug'=>$slug]);
 
-        $comment = new Comment();
+      $comment = new Comment();
         $form = $this->createForm(CommentFormType::class, $comment);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCreatedAt(new \DateTimeImmutable())
-                    ->setUser($this->getUser())
-                    ->setCourse($course)
-                    ->setPublished(True)
-                    ->setModarated(False);
+                ->setUser($this->getUser())
+                ->setCourse($course)
+                ->setPublished(True)
+                ->setModarated(False);
             $manager->persist($comment);
             $manager->flush();
             $this->addFlash(
@@ -60,7 +60,7 @@ public function courses(CourseRepository $repository, Request $request,Paginator
 
         return $this->render('course/course.html.twig', [
             'course' => $course,
-            'form'=>$form
+         /*   'form'=>$form*/
         ]);
 
 

@@ -1,0 +1,245 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ course.name|capitalize }}{% endblock %}
+
+{% block content %}
+{#    Title HIDDEN    #}
+    <section id="title">
+        <h1 class=" invisible ">online-dj-school : {{ course.name }}
+            : {{ course.smallDescription }}</h1>
+    </section>
+{#      DESCRIPTION     #}
+    <section>
+        <h2 class="text-center display-2 opacity-25 font-weight-bold">DJ COURSE</h2>
+        <div class="container my-5 ">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 p-5">
+                    <img class="card-img" src="{{ asset('images/courses/' ~ course.image) }}"
+                         alt="Card image cap">
+                </div>
+                <div class="col-sm-12 col-md-6 border-start border-3 border-primary d-flex ps-5 pt-5">
+                    <div class="  ">
+                        <h2 class="display-4"> {{ course.name|capitalize }}</h2>
+                        <h3 class="d-none d-lg-block mt-2">{{ course.smallDescription|capitalize }}</h3>
+                        <div class="price container bg-primary rounded-3 p-5">
+                            <h4 class="h1 text-white">{{ course.price }} Euro</h4>
+
+                            <a href="{{ path ('app_cart_addcourse', {'id':course.id}) }}" class="text-decoration-none">
+                                <div class="bg-warning rounded-3  text-black py-3 d-flex justify-content-center">
+                                    <h5>ADD TO BASKET</h5>
+                                </div>
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<section class="bg-primary py-5">
+    <div class="container ">
+        <ul class="nav nav-tabs d-flex pb-3" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active rounded-5 bg-warning" id="course-tab" data-bs-toggle="tab"
+                        data-bs-target="#course-tab-pane" type="button" role="tab"
+                        aria-controls="course-tab-pane" aria-selected="true">OVERVIEW
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-5" id="detail-tab" data-bs-toggle="tab"
+                        data-bs-target="#detail-tab-pane"
+                        type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="false">LESSONS
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-5" id="comments-tab" data-bs-toggle="tab"
+                        data-bs-target="#comments-tab-pane" type="button" role="tab"
+                        aria-controls="comments-tab-pane" aria-selected="false">WHAT'S INCLUDED
+                </button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-5 nav-tabs-border-color-warning" id="newcomment-tab" data-bs-toggle="tab"
+                        data-bs-target="#newcomment-tab-pane" type="button" role="tab"
+                        aria-controls="newcomment-tab-pane" aria-selected="false">EQUIPEMENT
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content  mb-5 " id="myTabContent">
+            <div class="tab-pane fade show active test-star rounded-2 my-2 p-3" id="course-tab-pane"
+                 role="tabpanel" aria-labelledby="course-tab" tabindex="0">
+                <div class="mt-2">
+
+
+                    <h3 class="h5">{{ course.fullDescription }}</h3>
+
+                    <h4 class="display-7">Category : {{ course.category.name }} </h4>
+                    <p>Level: {{ course.level.name }} </p>
+
+                </div>
+            </div>
+
+            <div class="tab-pane fade bg-light rounded-2 my-2 p-3" id="detail-tab-pane" role="tabpanel"
+                 aria-labelledby="Detail-tab" tabindex="0">
+                <p class="mt-2 mb-5">{{ course.fullDescription|nl2br }}</p>
+
+                <a href="{{ asset('images/programs/' ~ course.program) }}" class="btn btn-secondary rounded-2"
+                   target="_blank">
+                    Télécharger l'horaire
+                </a>
+
+            </div>
+            <div class="tab-pane  fade p-3" id="comments-tab-pane" role="tabpanel" aria-labelledby="comments-tab">
+                {# ACCES AUX COMMENTAIRES #}
+                <h3>Comments des abonnés</h3>
+                {% set total = 0 %}
+                {% for comment in course.comments %}
+                    {% set total = total + comment.rating %}
+                {% endfor %}
+                {% if course.comments|length %}
+                    {% set avg = total / course.comments|length %}
+                    <p>Note glogals :{{ avg }}{{ avg|rating(5, "fa-norm") }}
+                    Calculé sur {{ course.comments|length }} commentaires</p>
+                {% else %}
+                    <h3 class="text-danger">Il n'y a pas de commentaire pour la formation {{ course.name }}.</h3>
+                {% endif %}
+
+                <hr class="hr"/>
+                {% set name = 'true' %}
+                {% set com = null %}
+                {% for comment in course.comments %}
+                    <div class="bg-light rounded-2 my-2 p-3">
+                        <p class="">{{ comment.user.firstName|capitalize }}
+                            {{ comment.rating|rating(5, "fa-2x") }}
+                            créé
+
+                            le {{ comment.user.createdAt|date('d:m:Y') }} </p>
+                        <p class=" ">{{ comment.content }}</p></div>
+
+                {%if app.user == comment.user %}
+                        <P>User has a comment</P>
+                        {% set name = false %}
+                        {% set com = comment %}
+                    {% endif %}
+
+                {% endfor %}
+                {#
+                SI LES COMMENTS SONT ENVOYER SEP
+                {% for comment in comments %}
+                        <div class="bg-light rounded-2 my-2 p-3">
+                            <p class="">{{ comment.user.firstName|capitalize }} {{ comment.rating }} créé
+                                le {{ comment.user.createdAt|date('d:m:Y') }} </p>
+                            <p class=" ">{{ comment.content }}</p></div>
+
+                {% endfor %} #}
+            </div>
+
+            <div class="tab-pane fade " id="newcomment-tab-pane" role="tabpanel"
+                 aria-labelledby="newcomment-tab" tabindex="0">
+
+
+                {% if is_granted('ROLE_USER') and name == true %}
+                     {{ render ( path('app_user_newcomment', { id:course.id } ) ) }}
+     {#               {{ form_start(form) }}
+
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Ajouter" class="btn btn-secondary">
+                    {{ form_end(form) }}#}
+
+                {% elseif is_granted('ROLE_USER') and name == false and com.isPublished == true and com.isModarated == false %}
+                    <h3 class="mt-4">Vous ne pouvez pas ajouter de commentaire.</h3>
+                    <h3>Vous avez déja posté pours ce cours.</h3>
+                {% elseif is_granted('ROLE_ADMIN') %}
+                    <p>Espace visiteur</p>
+
+                {% elseif is_granted('ROLE_USER') and name == false and com.isPublished == false and com.isModarated == false %}
+                    <a href="{{ path('app_user_editcomment', {id:com.id}) }}" class="btn btn-outline-dark">Modifiez mon
+                        commentaire</a>
+
+                {% elseif is_granted('ROLE_USER') and name == false and com.isPublished == false and com.isModarated == true %}
+                    <h3 class="mt-4">Votre commentaire est en attente d'approbation.</h3>
+                    <h3>Un email vous sera envoyé après analyse de votre commentaire.</h3>
+
+                {% else %}
+                    <p class="mt-4">Vous devez être connecté pour poster un commentaire</p>
+
+                {% endif %}
+
+
+            </div>
+        </div>
+
+        {#        {% set total = 0 %}
+        {% for comment in course.comments %}
+            {% set total = total + comment.rating %}
+        {% endfor %}
+
+        {% set avg = total / course.comments|length %}
+        <p>{{ avg|rating }}</p> #}
+
+    </div>
+</section>
+
+
+    <section>
+        <div class="course-divider bg-warning d-flex justify-content-center align-items-center">
+            <div class="bg-warning" >
+                <h2 class="display-1">wa</h2>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section id="testimonial">
+
+        <h2 class="text-center h5 ">WHAT OUR STUDENTS SAYS</h2>
+        <h3 class="text-center display-2 fw-bold text-white">Testimonials</h3>
+  <div class="container">
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+
+
+                {% for key, comment in course.comments %}
+                    {% if (key == 0 or key % 2 == 0) %}
+
+                        <div class="carousel-item {{ (key == 0)? 'active' : '' }}">
+                        <div class="row  align-items-top justify-content-center   ">
+                    {% endif %}
+                    <div class="bg-primary col-sm-12 col-md-6 col-lg-4 m-2 rounded-2 carousel-div1">
+                        <div class="bg-primary my-2 p-3 ">
+                            <p class="">{{ comment.user.firstName|capitalize }} {{ comment.user.lastName|capitalize }} </p>
+                            <p class=" ">{{ comment.content }}</p>
+                        </div>
+                    </div>
+
+                    {% if (key % 2 != 0 and key !=0 ) %}
+                        </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                {% if (course.comments|length) % 2 != 0  %}
+            </div>
+            {% endif %}
+
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+      
+        
+
+    </section>
+
+
+    {% endblock %}

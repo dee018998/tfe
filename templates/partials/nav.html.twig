@@ -100,16 +100,7 @@
                 <div class="navbar-nav">
                     {% if not app.user %}
                         {#   ITEM  #}
-                        <li class="nav-item dropdown d-lg-none">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">News</a>
-                            <div class="dropdown-menu " data-bs-popper="static">
 
-                                <a class="  btn  btn-outline-light border-light  rounded-pill  ms-1  mb-2"
-                                   href="{{ path('app_actus') }}">All</a>
-
-                            </div>
-                        </li>
                         <div class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">Login</a>
@@ -147,9 +138,16 @@
                             </button>
                             {#    DROP DOWN ITEMS    #}
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ path('app_user_profil') }}">Mon profil</a></li>
-                                <li><a class="dropdown-item" href="{{ path('app_user_edituser',{'id':app.user.id} ) }}">Modifiez
-                                        mon profil</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_user_profil') }}">My profil</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_user_edituser',{'id':app.user.id} ) }}">Edit
+                                        profil</a></li>
+                                {% if is_granted('ROLE_CLIENT') %}
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ path('app_client') }}">My space</a>
+                                    </li>
+                                {% endif %}
                                 <div class="dropdown-divider"></div>
                                 <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
                                 {% if is_granted('ROLE_ADMIN') %}
@@ -159,6 +157,14 @@
                                     <li><a class="dropdown-item" href="{{ path('app_admin_course') }}">Admin view</a>
                                     </li>
                                 {% endif %}
+                                {% if is_granted('ROLE_MODERATOR') %}
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ path('app_mod_comment') }}">Admin view</a>
+                                    </li>
+                                {% endif %}
+
                             </ul>
                         </div>
                         {#   END DROP DOWN #}
@@ -211,7 +217,7 @@
 
 
                     {{ render(controller('App\\Controller\\FamilyController::familiesPhone')) }}
-                    <li><a class="dropdown-item" href="{{ path('app_actus') }}">Tout</a></li>
+                    <li><a class=" btn  btn-outline-light border-light  rounded-pill  ms-3  mb-2" href="{{ path('app_actus') }}">Tout</a></li>
                 </ul>
             </div>
         </div>

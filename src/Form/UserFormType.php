@@ -21,26 +21,27 @@ class UserFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('imageFile', VichImageType::class, [
+            'required' => false,
+            'allow_delete' => false,
+            'download_uri' => false,
+            'image_uri' => false,
+            'asset_helper' => true,
+        ])
 
             ->add('firstName',TextType::class,[
-                'label' => 'Votre prénom',
+                'label' => 'First name',
                 'attr' => [
                     'placeholder'=>'Charles'
                 ]
             ] )
             ->add('lastName',TextType::class,[
-                'label' => 'Votre nom',
+                'label' => 'Last name',
                 'attr' => [
                     'placeholder'=>'Dupond'
                 ]
             ] )
-            ->add('imageFile', VichImageType::class, [
-                'required' => false,
-                'allow_delete' => false,
-                'download_uri' => false,
-                'image_uri' => false,
-                'asset_helper' => true,
-            ])
+
         ;
     }
 
