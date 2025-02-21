@@ -45,6 +45,9 @@ h2 {
     color: rgb(173, 179, 199);
 }
 
+.my_editor{
+    min-height: 500px;
+}
 
 /* NAV */
 .logo {

@@ -30,8 +30,8 @@ class ActuController extends AbstractController
         return $this->render('news/actus.html.twig',['actus'=>$actus]
         );
     }
-    #[Route('/news/{slug}', name: 'app_actu')]
-    public function actu(Actu $actu, ActuRepository $repository,string $slug): Response
+    #[Route('/news/slug/{slug}', name: 'app_actu')]
+    public function actu( ActuRepository $repository,string $slug): Response
     {
         $actu = $repository->findOneBy(['slug' => $slug]);
         return $this->render('news/actu.html.twig', [

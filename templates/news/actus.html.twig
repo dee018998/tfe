@@ -2,7 +2,7 @@
 
 {% block title %}Hello ActuController!{% endblock %}
 {% block header %}
-    {% include 'partials/header.html.twig' %}
+{#    {% include 'partials/header.html.twig' %}#}
 {% endblock %}
 {% block content %}
 
@@ -11,7 +11,7 @@
      <div class="row my-5 align-items-top justify-content-center  px-5">
          {% for actu in actus %}
          <div class="card actu-card col-12 col-md-6 col-lg-4 bg-transparent border-0 px-5 my-3">
-             <a href="" class="text-decoration-none">
+             <a href="{{(path('app_actu', {slug : actu.slug})) }}" class="text-decoration-none">
              <img src="{{ asset('images/actus/' ~ actu.image) }}"
                   class="card-img-top rounded-3 actu-img "
                   alt="...">

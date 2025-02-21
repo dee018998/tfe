@@ -44,8 +44,10 @@ class AdminActuController extends AbstractController
             'is_new'=> true
         ]);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid())
         {
+
             $actu->setPublished(true)
                 ->setSlug($this->slugger->slug($actu->getName()))
                 ->setCreatedAt(new \DateTimeImmutable());
@@ -57,6 +59,7 @@ class AdminActuController extends AbstractController
             );
             return $this->redirectToRoute('app_admin_actus');
         }
+
         return $this->render('admin/newactu.html.twig', [
             'form' => $form,
         ]);

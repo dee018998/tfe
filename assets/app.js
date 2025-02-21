@@ -6,6 +6,8 @@ import './bootstrap.js';
 import './styles/bootstrap.min.css';
 // Custom CSS
 import './styles/app.css';
+
+import './styles/ckeditor5.css';
 // Icofont CSS
 import './styles/icofont.css';
 // Bootstrap JS

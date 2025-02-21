@@ -48,6 +48,7 @@ foreach ($admins as $item){
             $mailer->send($email);
             return $this->redirectToRoute('app_home');
         }
+        $this->addFlash('success', 'Your message has been sent successfully');
         return $this->render('contact/contact.html.twig', [
             'form' => $form,
         ]);

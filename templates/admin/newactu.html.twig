@@ -1,5 +1,9 @@
 {% extends 'admin/base.html.twig' %}
-
+  {% block javascripts %}
+      {#  <script src="{{ asset('js/ckeditor/ckeditor5.js') }}"></script>
+      <script src="{{ asset('js/ckeditor-init.js') }}"></script>#}
+      {% block importmap %}{{ importmap(['app' , 'ckeditor-init']) }}{% endblock %}
+  {% endblock %}
 {% block title %}Nouvel news{% endblock %}
 {% block body %}
     <section class="col-md-6">
@@ -11,8 +15,12 @@
         </div>
 
         {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Ajouter" class="btn btn-secondary">
+        {{ form_row(form.name) }}
+        {{ form_row(form.imageFile) }}
+        {{ form_row(form.family) }}
+  {#      <p>And your content</p>
+        <div id="editor" class="my_editor" >
+        </div>#}
         {{ form_end(form) }}
 
 

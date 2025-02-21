@@ -42,8 +42,8 @@ class Actu
     message : 'Le contenu ne peut être vide'
     )]
     #[Assert\Length(
-        min: 100,
-        max: 3000,
+        min: 10,
+        max: 10000,
         minMessage : "Le contenu de l'article doit contenir au moins {{ limit }} caractères",
 
         maxMessage : "Le contenu de l'article ne peut contenir plus de  {{ limit }} caractères",

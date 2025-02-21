@@ -12,6 +12,8 @@ use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -64,9 +66,9 @@ class ContactFormType extends AbstractType
             ->add('subject', TextType::class, [
                 'label' => 'Votre sujet',
             ])
-            ->add('message', TextareaType::class, [
-                'label' => 'Votre message',
-            ])
+            ->add('message', TextareaType::class,)
+            ->add('submit', SubmitType::class,)
+
         ;
 
     }

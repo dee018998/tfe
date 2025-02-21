@@ -145,15 +145,15 @@
                         <div><h2>Client profil</h2>
                         </div>
                     {% elseif is_granted('ROLE_CLIENT') and name == false and com.isPublished == false and com.isModarated == false %}
-                        <div><a href="{{ path('app_user_editcomment', {id:com.id}) }}"
-                                class="btn btn-outline-dark">Modifiez
-                                mon
-                                commentaire</a>
+                        <div >
+                            <h5 class="text-warning">Your comment has been moderated. Follow this
+                            <a class="test-danger" href="{{ path('app_user_editcomment', {id:com.id}) }}"
+                                >link</a>, if you want your comment to be seen by users.</h5>
                         </div>
                     {% elseif is_granted('ROLE_CLIENT') and name == false and com.isPublished == false and com.isModarated == true %}
                         <div>
-                            <h4 class="mt-4">Votre commentaire est en attente d'approbation.</h4>
-                            <h4>Un email vous sera envoyé après analyse de votre commentaire.</h4>
+                            <h5 class="text-warning">Your comment is waiting for approval. We will email you, after reviewing your comment.</h5>
+
                         </div>
 
                     {% endif %}

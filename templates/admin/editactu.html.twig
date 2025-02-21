@@ -1,5 +1,11 @@
 {% extends 'admin/base.html.twig' %}
 
+  {% block javascripts %}
+      {#  <script src="{{ asset('js/ckeditor/ckeditor5.js') }}"></script>
+      <script src="{{ asset('js/ckeditor-init.js') }}"></script>#}
+      {% block importmap %}{{ importmap(['app' , 'ckeditor-edit']) }}{% endblock %}
+  {% endblock %}
+
 {% block title %}Modifier l'actu{% endblock %}
 {% block body %}
     <div class="col p-3 offset-1">
@@ -12,8 +18,12 @@
         </div>
 
         {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Ajouter" class="btn btn-outline-dark">
+        {{ form_row(form.name) }}
+        {{ form_row(form.imageFile) }}
+        {{ form_row(form.family) }}
+        <p>And your content</p>
+        <div id="editor" >
+        </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}

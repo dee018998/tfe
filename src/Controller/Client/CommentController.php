@@ -71,7 +71,7 @@ class CommentController extends AbstractController
                     //dd($comment);
                     return $this->redirectToRoute('app_client');
                 }
-                return $this->render('comment/newcomment.html.twig', [
+                return $this->render('client/newcomment.html.twig', [
                     'form' => $form,
                 ]);
 

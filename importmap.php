@@ -35,4 +35,12 @@ return [
         'version' => '5.3.3',
         'type' => 'css',
     ],
+    'ckeditor-init' => [
+        'path' => './assets/js/ckeditor-init.js',
+        'entrypoint' => true,
+    ],
+    'ckeditor-edit' => [
+        'path' => './assets/js/ckeditor-edit.js',
+        'entrypoint' => true,
+    ],
 ];

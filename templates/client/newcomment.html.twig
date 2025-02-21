@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+    <section id="title">
+        <h1 class=" invisible ">online-dj-school
+           </h1>
+    </section>
+<section class="row">
+    <div class="col-md-6 offset-3">
+    <div class="col p-3 mt-2">
+        <div class="row">
+            <h2 class="col-10">Add your comment</h2>
+            <div class="col">
+                <a href="{{ path ('app_client') }}" class="btn btn-outline-light ">Retour</a>
+
+            </div>
+        </div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Ajouter" class="btn btn-secondary">
+        {{ form_end(form) }}
+
+
+    </div>
+        </div>
+</section>
+{% endblock %}

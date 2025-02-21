@@ -1,56 +1,176 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello CourseController!{% endblock %}
+{% block header %}
+    {% include 'banners/_banner_home.html.twig' %}
+{% endblock %}
+{% block content %}
+    {{ parent() }}
+    <section id="actu-content" class="bg-primary">
+        <h2 class="text-center h1 ">{{ actu.name }}</h2>
+        <!-- Modal -->
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-sm-12  col-lg-6">
 
-{% block body %}
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <h1>{{ actu.name }}</h1>
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    <img class="card-img" src="{{ asset('images/actus/' ~ actu.image) }}"
+                         alt="Card image cap">
+
                 </div>
+            </div>
+            {#    <div class="col">{{ actu.content|raw }}</div> #}
+        </div>
+        <div class="container">
 
-                <div class="modal-body">
-                    <div class="container-fluid">
+            {#      EDITOR    #}
+            <div class="mt-3 text-md-center text-lg-start">
+                <h3>
+                    This is the first Subtitle,this subtitle should be quite long, either a question or a full sentence.&nbsp;
+                </h3>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 text-start"><p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut bibendum ipsum. Nunc
+                            sodales
+                            nibh non semper gravida. Donec ut dui sed mauris semper iaculis sit amet eu metus. Integer
+                            commodo purus id diam semper faucibus. Cras gravida justo et purus tempor, eu eleifend neque
+                            vestibulum. In aliquam pellentesque lectus sed pharetra. Duis dapibus, justo eget posuere
+                            blandit, quam justo feugiat tellus, et lobortis velit massa at lorem. Praesent eget finibus
+                            odio. Proin cursus eget libero ut mattis. Curabitur egestas euismod vehicula. Proin nulla
+                            ante,
+                            venenatis ut eros non, laoreet aliquet magna. Sed dictum nec quam non feugiat. Donec
+                            accumsan,
+                            justo ut luctus sagittis, libero nibh vulputate orci, quis mattis sapien odio et velit. In
+                            auctor, erat nec tincidunt semper, neque neque iaculis nibh, nec tincidunt nisi tellus at
+                            quam.
+                            Proin et erat sit amet mi fermentum sollicitudin et vel sem.
 
-                        <div class="row">
-                            <div class="col-4">
-                                {#                                <img src="{{ asset('images/actus/' ~ actu.image) }}" class="card-img-top" alt="...">#}
-                            </div>
-                            <div class="col-5 "></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
-                            <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-9">
-                                Level 1: .col-sm-9
-                                <div class="row">
-                                    <div class="col-8 col-sm-6">
-                                        Level 2: .col-8 .col-sm-6
-                                    </div>
-                                    <div class="col-4 col-sm-6">
-                                        Level 2: .col-4 .col-sm-6
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-start"><p>
+                            Donec sodales nisl vulputate, auctor enim non, dignissim quam. Suspendisse a elit sit amet
+                            urna
+                            vulputate vehicula id vel purus. Phasellus augue turpis, viverra ultrices pretium in,
+                            gravida id
+                            ligula. Quisque molestie, lorem eget sodales mattis, nisl tortor tempus justo, nec dictum
+                            orci
+                            felis non neque. Aliquam fermentum nisl ac lacinia pellentesque. Donec eu eros nisl. Etiam
+                            tincidunt mattis iaculis. Sed ut posuere odio. Suspendisse nec mi quis ligula vestibulum
+                            congue.
+                            Vivamus scelerisque neque vel erat laoreet, sit amet iaculis elit sollicitudin. Phasellus
+                            nibh
+                            turpis, semper eget vulputate id, vestibulum in odio. Vivamus malesuada maximus ante id
+                            laoreet.
+                            Etiam malesuada accumsan odio, ut congue nisi blandit in.
 
+                        </p>
                     </div>
                 </div>
-
             </div>
+            <div>
+                <h3>
+                    Second subtitle.
+                </h3>
+                <ul>
+                    <li>
+                        <strong>Integrate into your app</strong>: time to bring the editing into your application. Take
+                        the
+                        code you created and add to your application.
+                    </li>
+                    <li>
+                        <strong>Explore features:</strong> Experiment with different plugins and toolbar options to
+                        discover
+                        what works best for your needs.
+                    </li>
+                    <li>
+                        <strong>Customize your editor:</strong> Tailor the editor's configuration to match your
+                        application's style and requirements. Or even write your plugin!
+                    </li>
+                </ul>
+                <h4>
+                    Second Subtitle.
+                </h4>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eros ipsum, viverra nec magna a,
+                    mollis consectetur sem. Ut at odio vestibulum, porta mauris ac, varius neque. Pellentesque habitant
+                    morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed feugiat, ipsum tempor
+                    laoreet lacinia, dui neque pulvinar diam, in laoreet nulla massa eu metus. Sed ut nibh sagittis,
+                    tincidunt dolor vel, blandit tellus. In rhoncus erat sed purus iaculis lacinia. Aenean arcu odio,
+                    faucibus vel aliquet quis, commodo vel arcu. Quisque pharetra mauris non finibus maximus. Mauris
+                    egestas felis sed tempus molestie. Integer interdum dapibus libero et rhoncus. Duis nec scelerisque
+                    ex. Nulla lacus lectus, lobortis in augue quis, faucibus blandit dolor. Suspendisse fringilla enim
+                    sed nisi porttitor gravida. Nunc at efficitur urna, nec condimentum quam. Vestibulum nec lorem
+                    tortor. Pellentesque cursus odio at imperdiet rhoncus.
+
+                    Vivamus eu auctor ante. Aliquam ut fermentum velit. Nam vel turpis urna. Pellentesque habitant morbi
+                    tristique senectus et netus et malesuada fames ac turpis egestas. Sed imperdiet commodo mollis.
+                    Aliquam sit amet magna at tortor aliquam iaculis. Phasellus a purus et diam vulputate scelerisque
+                    quis vel arcu. Praesent mollis sit amet lorem fermentum tristique. Vestibulum sit amet augue eu
+                    lacus condimentum laoreet. Maecenas quis pharetra mauris. Sed augue magna, sollicitudin non libero
+                    eu, mollis laoreet eros. Nullam condimentum urna sit amet metus efficitur dictum. Mauris dignissim
+                    elementum nisi quis dapibus. Vestibulum tincidunt leo vel bibendum maximus. Nullam justo nisi,
+                    vehicula sed urna ac, imperdiet lobortis libero.
+
+                    Donec sed varius dolor. Aliquam lobortis erat est. Praesent vel auctor massa, sed dapibus sem.
+                    Integer placerat felis nec suscipit pharetra. Vivamus imperdiet pellentesque lorem in rhoncus.
+                    Praesent nec hendrerit justo, ut hendrerit ex. Vivamus pretium efficitur lorem sit amet imperdiet.
+                    Mauris ac ex eu massa tristique suscipit eget viverra mi. In orci erat, ornare id ex ac, feugiat
+                    pellentesque sapien. Quisque vel faucibus dolor. Quisque malesuada felis a tortor blandit suscipit.
+                    Sed et mattis leo. Integer sit amet leo rutrum, porttitor est a, luctus orci.
+
+                    Cras porta cursus neque vitae maximus. Sed ligula ipsum, varius at ipsum at, fringilla molestie
+                    augue. Etiam tortor arcu, egestas eget commodo ut, congue eget dui. Morbi in mollis orci. Sed
+                    hendrerit vulputate quam, quis blandit dolor pellentesque vel. Nullam nec tristique dui. Mauris
+                    dapibus fermentum sem, nec consequat urna egestas et. Vestibulum tincidunt nibh leo, in eleifend sem
+                    elementum vitae. Duis malesuada ligula ut neque accumsan varius. Aenean lobortis.
+                </p>
+            </div>
+            <div>
+                <h3>
+                    Need help?
+                </h3>
+                <p>
+                    See this text, but the editor is not starting up? Check the browser's console for clues and
+                    guidance. It
+                    may be related to an incorrect license key if you use premium features or another feature-related
+                    requirement. If you cannot make it work, file a GitHub issue, and we will help as soon as possible!
+                </p>
+            </div>
+            <div class="">
+                <h3>
+                    Helpful resources
+                </h3>
+                <ul class="d-flex justify-content-start">
+                    <li class="btn btn-sm">
+                        <a target="_blank" class="" rel="noopener noreferrer"
+                           href="#">Trial sign up</a>,
+                    </li>
+                    <li class="btn btn-sm">
+                        <a target="_blank" rel="noopener noreferrer"
+                           href="#">Documentation</a>,
+                    </li>
+                    <li class="btn btn-sm">
+                        <a target="_blank" rel="noopener noreferrer"
+                           href="#">GitHub</a>
+                    </li>
+                    <li class="btn btn-sm">
+                        <a target="_blank" rel="noopener noreferrer" href="#">CKEditor Homepage</a>,
+                    </li>
+                    <li class="btn btn-sm">
+                        <a target="_blank" rel="noopener noreferrer" href="#">CKEditor
+                            5 Demos</a>,
+                    </li>
+                </ul>
+            </div>
+            {#            END EDITOR           #}
         </div>
-    </div>
 
 
+        <div class="container  text-star">
+            {{ actu.content|raw }}
+        </div>
+
+    </section>
 
 
 
