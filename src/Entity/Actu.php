@@ -72,6 +72,12 @@ class Actu
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $publishedAt = null;
+
+    #[ORM\Column(length: 80, nullable: true)]
+    private ?string $link = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isVideo = null;
     public function getId(): ?int
     {
         return $this->id;
@@ -190,6 +196,30 @@ class Actu
     public function setPublishedAt(?\DateTimeImmutable $publishedAt): static
     {
         $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(?string $link): static
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    public function isVideo(): ?bool
+    {
+        return $this->isVideo;
+    }
+
+    public function setIsVideo(?bool $isVideo): static
+    {
+        $this->isVideo = $isVideo;
 
         return $this;
     }

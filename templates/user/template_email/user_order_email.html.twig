@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+        <h1>Dear {{app.user.firstName }} {{app.user.lastName }},</h1>
+<p>terms
+    Thank you so much for your recent purchase with us. </p>
+<p>
+    We're thrilled to have you as a customer and genuinely appreciate your support. </p>
+<p>
+    Your satisfaction is our priority, and we hope you enjoy your new courses.
+</p>
+<div>
+    <h2>Your order : </h2>
+    <table class="table  rounded-3">
+        <tr>
+            <th>Course</th>
+            <th>Price</th>
+
+        </tr>
+
+        {% for item in items %}
+        <tr>
+            <td>
+                <div class="row">
+
+                    <div class="col"><h4>{{ item.course.name|capitalize }}</h4>
+                        <p>{{ item.course.smallDescription }}</p>
+                    </div>
+                </div>
+            </td>
+            <td>{{ item.course.price }} Euro</td>
+        {% endfor %}
+        <tr>
+
+          <td>
+                <div class="">
+                    <p class="">TOTAL : </p>
+                    <p class=""> {{ total }} Euro</p>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+    <p>
+        Here's how to access your course:<br>
+
+        Go to <a href="http://127.0.0.1:8000/login">www.my.online.dj.school.com</a> <br>
+        Log in with your username and password.
+    </p>
+    <img class=" col-2"
+         src="{{ email.image('@images/email/user_email.png') }}"
+         alt="Card image cap">
+    <p>
+        Your purchased course will be available in <strong>My space.</strong> <br>
+        If you have any questions or need assistance, please don't hesitate to contact our support team at contact@my-online-dj-school.be or visit our FAQ page at [lien vers la FAQ].
+        <br>
+        We look forward to seeing you progress on your DJing journey!
+        <br>
+        Sincerely,
+        <br>
+        The My Online DJ School Team
+    </p>
+    <p>Should you have any questions or need further assistance, please don't hesitate to reach out.
+    </p>
+
+
+
+
+</div>
+

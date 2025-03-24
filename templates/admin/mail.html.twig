@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Hello AdminMailController!{% endblock %}
+
+    {% block header %}
+        {% include 'partials/connect_header.html.twig' %}
+    {% endblock %}
+
+    {% block body %}
+<section class="row">
+    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4 bg-black p-5 rounded-5">
+        <div class=" border-2 border-start border-primary me-5 ">
+            <h2 class="display-4 my-3 ps-4 h1">Email</h2>
+                    {{ form_start(form) }}
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </section >
+    {% endblock %}
+

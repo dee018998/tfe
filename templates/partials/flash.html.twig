@@ -1,9 +1,9 @@
-<section id="flashes">
+<div id="flashes">
 {% for label, messages in app.flashes %}
     {% for message  in messages  %}
-        <div class="alert alert-{{ label }}">
+        <div class="alert alert-{{ label }} text-center">
             {{ message }}
         </div>
         {% endfor %}
 {% endfor %}
-</section>
+</div>

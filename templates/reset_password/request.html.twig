@@ -6,14 +6,14 @@
 {% endblock %}
 {% block content %}
 
-    <main class="container mb-5">
+    <section class="container mb-5">
 
         {% for flash_error in app.flashes('reset_password_error') %}
             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
-        <section class="row ">
+        <div class="row ">
             <div class=" col-sm-12 col-md-8  offset-md-2 bg-black rounded-5 p-5 text-white">
-        <h1>Reset your password</h1>
+        <h2 class="h1">Reset your password</h2>
 
         {{ form_start(requestForm) }}
         {{ form_row(requestForm.email) }}
@@ -28,7 +28,7 @@
         {{ form_end(requestForm) }}
 
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
 {% endblock %}

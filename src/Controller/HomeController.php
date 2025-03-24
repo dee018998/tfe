@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\ActuRepository;
 use App\Repository\CourseRepository;
+use App\Repository\FamilyRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(CourseRepository $repository, Request $request,PaginatorInterface $paginator,): Response
+    public function index(CourseRepository $repository, Request $request,PaginatorInterface $paginator,ActuRepository $repo, FamilyRepository $famrepo): Response
     {
         $courses = $repository->findBy(
 
@@ -21,6 +23,14 @@ class HomeController extends AbstractController
             3
 
         );
+        $actus = [];
+        $families = $famrepo->findAll();
+        foreach ( $families as $family){
+            $actu = $repo->findOneByFamily($family);
+            $actus [] = $actu;
+        }
+
+/*dd($actus);*/
         foreach($courses as $c)
         {
             $comments = $c->getComments();
@@ -29,6 +39,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig',[
             'courses' => $courses,
              'comments' => $pagination,
+            'actus' => $actus,
         ] )
             ;
     }

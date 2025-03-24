@@ -39,9 +39,9 @@ class UserProfilController extends AbstractController
                 $manager->flush();
                 $this->addFlash(
                     'success',
-                    'Votre profil a été mise à jour'
+                    'Your profil has been updated'
                 );
-                if($this->getUser()->getRoles()[0] == 'ROLE_USER'){
+                if(in_array($this->getUser()->getRoles()[0], ['ROLE_USER' , 'ROLE_ADMIN' , 'ROLE_SUPER_ADMIN']) ){
                     return $this->redirectToRoute('app_user_profil');
                 }
                 if($this->getUser()->getRoles()[0] == 'ROLE_CLIENT'){

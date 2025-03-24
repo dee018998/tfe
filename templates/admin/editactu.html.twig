@@ -8,14 +8,14 @@
 
 {% block title %}Modifier l'actu{% endblock %}
 {% block body %}
-    <div class="col p-3 offset-1">
-        <div class="row">
-            <h2 class="col-10">Modifiez une actu</h2>
-            <div class="col">
-                <a href="{{ path('app_admin_course') }}" class="btn btn-outline-dark">Retour</a>
-
-            </div>
+    <section class="col-md-6">
+    <div class="row">
+        <h2 class="col-10">Ajoutez une New</h2>
+        <div class="col">
+            <a href="{{ path('app_admin_actus') }}" class="btn btn-outline-dark">Retour</a>
         </div>
+    </div>
+
 
         {{ form_start(form) }}
         {{ form_row(form.name) }}
@@ -25,5 +25,5 @@
         <div id="editor" >
         </div>
         {{ form_end(form) }}
-    </div>
+    </section>
 {% endblock %}

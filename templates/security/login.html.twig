@@ -8,7 +8,7 @@
 
 {% block content %}
     {{ parent() }}
-<main class="container mb-5">
+<section class="container mb-5">
     <form method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -16,7 +16,7 @@
 
         {% if app.user %}
             <div class="mb-3">
-                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Vous déconnecter</a>
+                You are connected as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
         {% endif %}
         <div class="row">
@@ -60,5 +60,5 @@
 
     </form>
 
-</main>
+</section>
 {% endblock %}

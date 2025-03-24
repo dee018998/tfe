@@ -2,36 +2,110 @@
 
 {% block title %}Hello ActuController!{% endblock %}
 {% block header %}
-{#    {% include 'partials/header.html.twig' %}#}
+    {% include 'partials/news_header.html.twig' %}
 {% endblock %}
 {% block content %}
 
+    <div class="bg-primary">
+        <div class="container ">
 
- <div class="container">
-     <div class="row my-5 align-items-top justify-content-center  px-5">
-         {% for actu in actus %}
-         <div class="card actu-card col-12 col-md-6 col-lg-4 bg-transparent border-0 px-5 my-3">
-             <a href="{{(path('app_actu', {slug : actu.slug})) }}" class="text-decoration-none">
-             <img src="{{ asset('images/actus/' ~ actu.image) }}"
-                  class="card-img-top rounded-3 actu-img "
-                  alt="...">
+            <div class="d-flex justify-content-between p-5 ">
+                <div class="ps-5">
+                    <h2 class=" display-1 text-white fw-bold  ">Learn</h2>
+                    <div class="d-flex flex-row align-items-center">
+                        <h3 class=" h1 text-warning text-center">{{ family }}</h3>
+                        {% if(family == 'All' or family == 'Video') %}
+                            {% if (family == 'All') %}
+                                <a class="  btn  btn-outline-light border-light  rounded-pill  ms-3  mb-2" href="{{ path('app_actu_video') }}">Video</a>
+                                {% else  %}
+                                    <a class="  btn  btn-outline-light border-light  rounded-pill  ms-3  mb-2" href="{{ path('app_actus') }}">All</a>
+                                {% endif %}
+                        {% endif %}
+                        {% for item in families %}
+                            {% if not (item ==  family ) %}
+                            <a class="  btn  btn-outline-light border-light  rounded-pill  ms-3  mb-2" href="{{ path('app_actu_family', {family:item.id}) }}">{{ item.name }}</a>
+                            {% else %}
+                                <a class="  btn  btn-outline-light border-light  rounded-pill  ms-3  mb-2" href="{{ path('app_actus') }}">All</a>
+                                <a class="  btn  btn-outline-light border-light  rounded-pill  ms-3  mb-2" href="{{ path('app_actu_video') }}">Video</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
 
-             <div class="card-body   text-start py-4 bg-transparent">
-                 <h5 class="text-white">{{ actu.name|capitalize|u.truncate(40, '...', false) }}</h5>
 
-                 {# <p>  {{ actu.content  }})</p> #}
-                 {#                <p class="card-text">{{ actu.content|u.truncate(100, '...')}}</p> #}
-             </div>
-             </a>
+        <div class="row  align-items-top justify-content-center  px-5">
+            {% if  (family != 'Tutorial' and family != 'Video') %}
+            {% for actu in actus %}
+                <div class="card actu-card col-12 col-md-6 col-lg-4 bg-transparent border-0 px-5 my-3">
 
-         </div>
-         {% endfor %}
-         <div class="mt-2 ps-5 text-right">
-             {{ knp_pagination_render(actus) }}
-         </div>
-     </div>
+                    <a href="{{ (path('app_actu', {slug : actu.slug})) }}" class="text-decoration-none">
+                        <div class="actu-div-img ">
 
- </div>
 
+                           <img src="{{ asset('images/actus/' ~ actu.image) }}"
+                                 class="card-img-top rounded-3 actu-img "
+                                 alt="...">
+
+
+                            <div class="actu-child-img-top ">                            <a href="#" class="btn btn-sm text-white rounded-pill bg-warning">{{ actu.family }}</a>
+
+                            </div>
+                            {% if  (actu.family == 'Tutorial' or actu.family == 'Video' ) %}
+                                <div class="actu-child-img-center">
+                                    <i class="icofont-youtube-play our-socials"></i>
+                                </div>
+                            {% endif %}
+                            <div class="actu-child-img-bottom">
+                                <h5 class="text-white">{{ actu.name|capitalize|u.truncate(40, '...', false) }}</h5>
+                        </div>
+
+                        </div>
+                        <div class="card-body   text-start py-4 bg-transparent">
+                            {#
+                            <h5 class="text-white">{{ actu.name|capitalize|u.truncate(40, '...', false) }}</h5>
+                            #}
+
+                            {# <p>  {{ actu.content  }})</p> #}
+                            {#                <p class="card-text">{{ actu.content|u.truncate(100, '...')}}</p> #}
+                        </div>
+                    </a>
+
+                </div>
+            {% endfor %}
+                {% else %}
+                    {% for actu in actus %}
+                        <div class="card actu-card col-12 col-md-6 col-lg-4 bg-transparent border-0 px-5 my-3">
+
+                            <a href="{{ (path('app_actu', {slug : actu.slug})) }}" class="text-decoration-none">
+
+                                    <iframe class="actu-img rounded-3"
+                                            src="https://www.youtube.com/embed/{{ actu.link }}"
+                                            title="YouTube video player"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                    </iframe>
+
+
+
+
+
+                                        <h5 class="text-white">{{ actu.name|title }}</h5>
+
+
+
+
+                            </a>
+        </div>
+
+                    {% endfor %}
+            {% endif %}
+            <div class="mt-2 ps-5 text-right">
+                {{ knp_pagination_render(actus) }}
+            </div>
+        </div>
+
+    </div>
+    </div>
 
 {% endblock %}

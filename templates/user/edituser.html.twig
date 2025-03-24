@@ -1,22 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Profil : Editer{% endblock %}
+{% block header %}
+    {% include 'user/partials/_banner_profil.html.twig' %}
+{% endblock %}
 {% block content %}
+
 {#    {{ render ( path('app_user_profil') ) }}#}
-            <h2 class="display-4">Modifiez mon profil</h2>
+<section class="container mb-5">
+    <div class="row ">
+        <div id="contactus" class=" col-sm-12 col-md-8  offset-md-2 bg-black rounded-5 p-5 text-white">
+
+            <h2 class="display-4 ">Update profil</h2>
             {{ form_start(form) }}
 
             {{ form_widget(form) }}
             <div class="d-flex justify-content-between">
-                <input type="submit" value="Ajouter" class="btn btn-outline-dark">
+                <input type="submit" value="Save changes" class="btn btn-outline-dark btn-warning">
 {#                <div>
                     <a href="{{ path('app_user_profil') }}" class="btn btn-outline-dark">Mon profil</a>
                     <a href="{{ path('app_logout') }}" class="btn btn-outline-dark">Se déconnecter</a>
                 </div>#}
             </div>
             {{ form_end(form) }}
-
-
+</div></div>
+</section>
 {% endblock %}
 
 

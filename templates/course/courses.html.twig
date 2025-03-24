@@ -3,51 +3,14 @@
 {% block title %}Our Courses{% endblock %}
 {% block header %}
     {% include 'partials/courses-header.html.twig' %}
+<div class="my-3">
+
+    {% include 'fragment/_socials_horizon.html.twig' %}
+</div>
 {% endblock %}
 {% block content %}
-    {{ parent() }}
+{#    {{ parent() }}#}
 
- {#   <div class="container-fluid mt-2 bg-light pb-2">
-        <h1 class="display-4">Liste des Formations</h1>
-
-        <a class="btn btn-outline-dark rounded-pill" href="{{ path('app_courses') }}">Tout</a>
-
-        {{ render(controller('App\\Controller\\CategoryController::categories')) }}
-        {{ render(controller('App\\Controller\\LevelController::levels')) }}
-        <div class="row my-4">
-            {% for course in courses %}
-                <div class="card course-card ms-3 " style="width: 17rem;">
-                    <img class=" card-img-top mt-3"
-                         src="{{ asset('images/courses/' ~ course.image) }}"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        #}{#                       <h6 class="btn btn-outline-dark "> #}{#
-                        <a class="btn btn-outline-dark rounded-5 btn-sm"
-                           href="{{ path('app_courses_cat', {category:course.category.id}) }}">{{ course.category.name }}</a>
-                        <a class="btn btn-outline-dark rounded-5 btn-sm"
-                           href="{{ path('app_courses_lev', {level:course.level.id}) }}">{{ course.level.name }}</a>
-                        <h5 class="mt-3"> {{ course.name|capitalize|u.truncate(15, '...', false) }} </h5>
-                        #}{#       <p class="card-text">{{ course.smallDescription|u.truncate(30, '...', false) }}</p> #}{#
-                        <a href="{{ path('app_course', { slug:course.slug }) }}"
-                           class="text-decoration-none link-secondary">En savoir
-                            plus...</a>
-                        #}{#     {% if is_granted('ROLE_USER') %} #}{#
-
-                        <a href=" {{ path ('app_cart_addcourse', {'id':course.id}) }}"
-                           class="text-decoration-none link-secondary btn btn-outline-primary rounded-5 mt-3 btn-sm">Ajoutez
-                            au panier</a>
-                        #}{#     {% endif %} #}{#
-                    </div>
-                </div>
-
-            {% endfor %}
-        </div>
-        <div class="m-2">
-            {{ knp_pagination_render(courses) }}
-        </div>
-    </div>
-
-#}
 
 <div class="bg-primary">
     <div class="container     p-5 ">
@@ -60,11 +23,12 @@
             </div>
 
             <div class="row  align-items-top justify-content-center">
+               {% set arcomments = [] %}
                 {% for course in courses %}
 
-                    <div class="col-12 col-md-6 col-lg-4 col-xl-3 course-card  p-4">
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-3   p-4">
                         <a href="{{ path('app_course',{ slug:course.slug }) }}" class="text-decoration-none">
-                            <div class="card rounded-3 border-1 border-secondary rounded-5  bg-dark p-3 ">
+                            <div class="card rounded-3 border-1 border-secondary rounded-5  bg-dark p-3 course-card">
                                 <div class="course-img-frm  my-bg-{{ course.color.name}} rounded-5 ">
                                     <img src="{{ asset('images/courses/' ~ course.image) }}"
                                          class="course-img border-primary  "
@@ -75,21 +39,24 @@
 #}
                                 </div>
 
-                                <div class="mt-3">
+                                <div class="mt-3 d-flex flex-column justify-content-center">
                                     <h2 class="text-white h5 font-weight-bold	d-none d-md-block   ps-2"> {{ course.name| title |u.truncate(30, '...', false) }} </h2>
-
+<div>
                                     <a class="btn btn-outline-light rounded-2 btn-sm"
                                        href="{{ path('app_courses_category', {category:course.category.id}) }}">{{ course.category.name }}</a>
                                     <a class="btn btn-outline-light rounded-2 btn-sm"
                                        href="{{ path('app_courses_level', {level:course.level.id}) }}">{{ course.level.name }}</a>
                                     <button class="btn btn-outline-light rounded-2 btn-sm ">{{ course.duration }} h</button>
-
+                                </div>
                                     <h5 class="text-white  d-sm-block d-md-none	 h1 mt-3"> {{ course.name|capitalize|u.truncate(80, '...', false) }} </h5>
 
                                     <div class="d-flex flex-row justify-content-start mt-4 text-white ">
                                         {% set total = 0 %}
-                                        {% for comment in course.comments %}
+                                        {% for key, comment in course.comments %}
+                                            {% set i = key %}
                                             {% set total = total + comment.rating %}
+                                      {#      {% set arcomments =comment  %}#}
+                                            {% set arcomments = arcomments|merge( [comment]) %}
                                         {% endfor %}
                                         {% if course.comments|length %}
                                             {% set avg = total / course.comments|length %}
@@ -124,4 +91,49 @@
 
     </div>
 </div>
+
+
+   <section id="testimomial bg-primary">
+        <h2 class="text-center h5 ">WHAT OUR STUDENTS SAYS</h2>
+        <h3 class="text-center display-2 fw-bold text-white">Testimonials</h3>
+        <div class="container">
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    {% for key, comment in arcomments %}
+                    {% if (key == 0 or key % 2 == 0) %}
+                    <div class="carousel-item {{ (key == 0)? 'active' : '' }} carousel-testimonial">
+                        <div class="row  align-items-top justify-content-center carousel-testimonial  carousel-div1">
+                            {% endif %}
+                            <div class="bg-primary col-sm-12 col-md-6 col-lg-4 m-2 rounded-2 carousel-testimonial">
+                                <div class="bg-primary my-2 p-3 ">
+                                    <p class="">{{ comment.user.firstName|capitalize }} {{ comment.user.lastName|capitalize }} </p>
+                                    <p class=" ">{{ comment.content }}</p>
+                                </div>
+                            </div>
+                            {#     SET ONE OR TWO CLOSING DIVs     #}
+                            {% if (key % 2  and key !=0 ) %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if (arcomments|length) % 2 != 0 %}
+                </div>
+                {% endif %}
+                {# END #}
+                {% endfor %}
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <h4 class="text-center h5 ">HAPPY CUSTOMERS</h4>
+        <div class="container d-flex align-item-center justify-content-center h3">
+            {{ render(controller('App\\Controller\\CommentController::allRating')) }}
+        </div>
+    </section>
 {% endblock %}

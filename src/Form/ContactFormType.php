@@ -25,10 +25,14 @@ class ContactFormType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'Votre prénom',
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Your first name',]
+
+                ,
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Votre nom',
+                'label' => 'Last name',
             ])
             ->add('admin', EntityType::class, [
                 'class' => User::class,
@@ -61,13 +65,17 @@ class ContactFormType extends AbstractType
                'choice_label' => 'email'
             ])*/
             ->add('email', EmailType::class, [
-                'label' => 'Votre email',
+                'label' => 'Your email',
             ])
             ->add('subject', TextType::class, [
-                'label' => 'Votre sujet',
+                'label' => 'What is the subject',
             ])
-            ->add('message', TextareaType::class,)
-            ->add('submit', SubmitType::class,)
+            ->add('message', TextareaType::class, [
+                'label' => 'What is your message',
+            ])
+            ->add('submit', SubmitType::class,[
+                'label' => 'Send',
+            ])
 
         ;
 

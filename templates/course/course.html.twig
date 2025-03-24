@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="tab-pane fade bg-light rounded-2 my-2 p-3" id="detail-tab-pane" role="tabpanel"
-                     aria-labelledby="Detail-tab" tabindex="0">
+                     tabindex="0">
                     <p class="mt-2 mb-5">{{ course.fullDescription|nl2br }}</p>
 
                     <a href="{{ asset('images/programs/' ~ course.program) }}" class="btn btn-secondary rounded-2"
@@ -179,13 +179,24 @@
     </section>
 
 
-    <section>
-        <div class="course-divider bg-warning d-flex justify-content-center align-items-center">
-            <div class="bg-warning" >
-                <h2 class="display-1">wa</h2>
+    <section >
+        <div class="course-divider d-flex justify-content-center align-items-center">
+                <h2 class=" text-warning">Users Rating</h2>
+                <h2></h2>
+                {% set total = 0 %}
+                {% for comment in course.comments %}
+                    {% set total = total + comment.rating %}
+                {% endfor %}
+                {% if course.comments|length %}
+                    {% set avg = total / course.comments|length %}
+                    <p>Glogal :{{ avg|rating(5, "fa-3x") }}</p>
+                    <p>On {{ course.comments|length }} comments</p>
+                {% else %}
+                    <h3 class="text-danger">Il n'y a pas de commentaire pour la formation {{ course.name }}.</h3>
+                {% endif %}
             </div>
 
-        </div>
+
     </section>
 
     <section id="testimonial">
@@ -234,6 +245,20 @@
 
 
 
+       <div class="d-flex">
+        {% set total = 0 %}
+        {% for comment in course.comments %}
+            {% set total = total + comment.rating %}
+        {% endfor %}
+        {% if course.comments|length %}
+            {% set avg = total / course.comments|length %}
+            <h3>Glogal :</h3>
+            {{ avg|rating(5, "fa-3x") }}
+            <h3>({{ avg }}) ~ {{ course.comments|length }} comments</h3>
+
+        {% else %}
+            <h3 class="text-danger">Il n'y a pas de commentaire pour la formation {{ course.name }}.</h3>
+        {% endif %}</div>
     </section>
 
 

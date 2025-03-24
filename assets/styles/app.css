@@ -12,14 +12,16 @@
     --lgt: #e9ecef;
     --sec: #7a8288;
     --drk: #272b30;
-
+    --drkr:#1A1C1E;
 
 }
 body {
     font-family: 'Nunito', sans-serif !important;
     letter-spacing: -1px;
 }
-
+.my-drk {
+    background-color: var(--drk);
+}
 .my-bg-cyan {
     background-color: var(--cyan);
 }
@@ -34,6 +36,9 @@ body {
 
 .my-bg-green {
     background-color: var(--green);
+}
+.my-drkr {
+    background-color: var(--drkr);
 }
 
 h1 {
@@ -81,15 +86,25 @@ h2 {
     background-size: cover;
 
 }
+.banner-myprofil-img{
+    height: 400px;
+    background: url("../images/mixtable-header.png") no-repeat center center;
 
+}
+.header-learn-div{
+    height: 50px;
+}
 /* Single Course  */
 .course-divider {
     height: 500px;
+  /*  filter: grayscale(90%);*/
     background: url("../images/controller-header.png") no-repeat center top;
     background-size: cover;
 
 }
-
+.carousel-testimonial{
+min-height: 220px;
+}
 .my-carousel{
     height: 250px;
 }
@@ -108,7 +123,7 @@ h2 {
 .course-img-frm {
 
     /*  background: #21B6D3;*/
-    height: 200px;
+    height: 205px;
 }
 
 /*.course-img-frm:hover{
@@ -120,10 +135,20 @@ h2 {
 .course-img,
 .nav-img {
 
-    height: auto;
+    height: 180px;
+    width: 240px;
     max-width: 100%;
 /*
     object-fit: cover;*/
+}
+.nav-card-img-tmp{
+    height: 205px;
+    width: 245px;
+}
+.course-card{
+
+    min-height: 452px;
+    width: 240px;
 }
 
 .price{
@@ -133,9 +158,31 @@ h2 {
 .actu-img {
 
     max-width: 100%;
-    height: auto;
+    height: 210px;
+    object-fit: cover;
 }
 
+.actu-div-img{
+    position: relative;
+}
+.actu-child-img-top{
+    position: absolute;
+
+    top: 5%;
+    left:20px
+}
+.actu-child-img-center{
+    position: absolute;
+
+ top: 40%;
+    left: 40%;
+}
+.actu-child-img-bottom{
+    position: absolute;
+
+    bottom : 5%;
+    left:20px
+}
 .ico {
     height: 30px;
 
@@ -159,7 +206,7 @@ form {
 
 .profil-img {
     width: 180px;
-    height: 180px;
+    height: 220px;
     object-fit: cover;
 }
 
@@ -188,9 +235,9 @@ iframe {
     .course-img:hover {
         transition: 0.5s;
         max-width: 100%;
-        transform: scale(110%) translate(-4%);
+        transform: scale(105%) translate(-2%);
         z-index: -1;
-        object-fit: cover;
+        /*object-fit: cover;*/
     }
 
     .nav-img:hover {
@@ -222,4 +269,6 @@ iframe {
     width: 10px;
 }
 
-
+.our-socials{
+    font-size: 40px;
+}

@@ -15,7 +15,28 @@ class ActuRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Actu::class);
     }
+    public function findOneByFamily($value): ?Actu
+    {
+        return $this->findOneBy(
+            ['family' => $value,
+                'isPublished' => true,],
+            ['createdAt' => 'DESC'],
 
+
+        );
+    }
+        public function findByLink(): array
+        {
+        return $this->findBy(
+
+            ['isVideo' => true,
+                'isPublished' => true],
+
+            ['createdAt' => 'DESC'],
+
+
+        );
+    }
 //    /**
 //     * @return Actu[] Returns an array of Actu objects
 //     */

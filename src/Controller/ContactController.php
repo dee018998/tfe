@@ -19,22 +19,22 @@ class ContactController extends AbstractController
      * @throws TransportExceptionInterface
      */
     #[Route('/contact', name: 'app_contact')]
-    public function contact(UserRepository $repository,MailerInterface $mailer, Request $request): Response
+    public function contact(UserRepository $repository, MailerInterface $mailer, Request $request): Response
     {
-$user = [];
-$admins = $repository->findPersonByRolesAdmin();
-foreach ($admins as $item){
-    $user[] = ($item->getEmail());
+        $user = [];
+        $admins = $repository->findPersonByRolesAdmin();
+        foreach ($admins as $item) {
+            $user[] = ($item->getEmail());
 
-    }
+        }
 
-/*        $email = (new Email())
-            ->from('johndoe@gmail.com.com')
-            ->to('info@webarticle.com')
-            ->subject('Question')
-            ->text('something...');
-        $mailer->send($email);
-        return $this->render('contact/contact.html.twig');*/
+        /*        $email = (new Email())
+                    ->from('johndoe@gmail.com.com')
+                    ->to('info@webarticle.com')
+                    ->subject('Question')
+                    ->text('something...');
+                $mailer->send($email);
+                return $this->render('contact/contact.html.twig');*/
 
         $contact = new Contact();
         $form = $this->createForm(ContactFormType::class, $contact);
@@ -46,9 +46,10 @@ foreach ($admins as $item){
                 ->subject($contact->getSubject())
                 ->text($contact->getMessage());
             $mailer->send($email);
+            $this->addFlash('success', 'Your message has been sent successfully');
             return $this->redirectToRoute('app_home');
         }
-        $this->addFlash('success', 'Your message has been sent successfully');
+
         return $this->render('contact/contact.html.twig', [
             'form' => $form,
         ]);

@@ -1,4 +1,6 @@
 {% for category in categories %}
+
+
         <a class="btn  btn-outline-light border-light  rounded-pill  ms-1 col mb-2" href="{{ path('app_courses_category', {category:category.id}) }}">{{ category.name }}</a>
 {# <div class="row">       {% for course in category.course %}
          <div class="col-3">

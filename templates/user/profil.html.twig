@@ -2,12 +2,16 @@
 
 
 {% block title %}Profil{% endblock %}
-
+{% block header %}
+    {% include 'user/partials/_banner_profil.html.twig' %}
+{% endblock %}
 {% block content %}
-<main class="container">
-   {{ include ('user/fragments/_profil.html.twig') }}
+    <div class="bg-primary">
+<section class="container bg-primary">
 
-</main>
+   {{ include ('user/fragments/_profil.html.twig') }}
+    </div>
+</section>
 
 
 {% endblock %}

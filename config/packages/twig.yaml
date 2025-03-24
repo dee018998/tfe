@@ -3,7 +3,8 @@ twig:
     form_themes: ['bootstrap_5_layout.html.twig']
     paths:
         '%kernel.project_dir%/vendor/boruta/star-rating-bundle/Resources/views': BorutaStarRatingBundle
-
+        # point this wherever your images live
+        '%kernel.project_dir%/assets/images': images
 when@test:
     twig:
         strict_variables: true

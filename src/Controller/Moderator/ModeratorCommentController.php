@@ -25,6 +25,13 @@ class ModeratorCommentController extends AbstractController
             $request->query->getInt('page', 1),
             12
         );
+        $user = $this->getUser()->getRoles();
+        if ($user[0] == 'ROLE_ADMIN' or $user[0] == 'ROLE_SUPER_ADMIN'  ){
+
+            return $this->render('admin/comment.html.twig', [
+                'comments' => $comments,
+            ]);
+        }
 
         return $this->render('moderator/comment.html.twig', [
             'comments' => $comments,
