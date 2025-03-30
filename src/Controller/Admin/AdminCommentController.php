@@ -20,34 +20,48 @@ class AdminCommentController extends AbstractController
     #[Route('/admin/comment', name: 'app_admin_comment')]
     public function comment(CommentRepository $repository, Request $request, PaginatorInterface $paginator): Response
     {
-        $comments = $repository->findBy([], ['createdAt' => 'DESC'], );
+        $pageNbr = $request->query->getInt('page', 1);
+        $sort = $request->query->getString('sort', 'null');
+        $direction = $request->query->getString('direction', 'ASC');
+        $comments = $repository->findBy([], ['createdAt' => 'DESC'],);
         $comments = $paginator->paginate($comments,
-            $request->query->getInt('page', 1),
+            $pageNbr,
             12
         );
 
         return $this->render('admin/comment.html.twig', [
             'comments' => $comments,
+            'page' => $pageNbr,
+            'sort' => $sort,
+            'direction' => $direction
+
         ]);
     }
 
     #[Route('admin/viewcomment/{id}', name: 'app_admin_viewcomment')]
     public function viewComment(MailerInterface $mailer, Comment $comment, Request $request, EntityManagerInterface $manager): Response
     {
+        /*        Send Email to inform the user comment is not valid      */
         if ($comment->isPublished() === true && $comment->isModarated() === False) {
             $comment->setPublished(false);
 
             $email = (new Email())
                 ->from('info@webarticle.com')
                 ->to($comment->getUser()->getEmail())
-                ->subject('Commentaire non conforme')
-                ->text('Bla bla bla bla commentaire non conforme');
+                ->subject('Clarification Regarding Your Comment')
+                ->text("Dear" .$comment->getUser()->getFirstName(). " ".$comment->getUser()->getLastName() .
+                "Thank you for sharing your thoughts with us. 
+                Upon review, we noticed that your comment does not align with the context or requirements of the platform guidelines.
+                We encourage constructive and accurate contributions to ensure meaningful engagement within our community. 
+                If you have any additional insights or questions, feel free to share them.
+                We value your participation and look forward to your future contributions!
+                Best regards,");
             $mailer->send($email);
             $manager->persist($comment);
             $manager->flush();
             $this->addFlash(
                 'success',
-                'Le message a été envoyé'
+                "Le message a été envoyé. Le commentaire est attente de correction."
             );
 
             return $this->redirectToRoute('app_admin_comment');
@@ -55,13 +69,18 @@ class AdminCommentController extends AbstractController
 
         } else if ($comment->isPublished() === false && $comment->isModarated() === True) {
             $comment->setPublished(true)
-                    ->setModarated(false);
+                ->setModarated(false);
 
             $email = (new Email())
-                ->from('info@webarticle.com')
+                ->from('info@online-dj-school.com')
                 ->to($comment->getUser()->getEmail())
                 ->subject('Commentaire valide')
-                ->text('Votre commentaire est conforme, il a été publié');
+                ->text("Dear" . "Thank you for sharing your thoughts with us. 
+                Upon review, we noticed that your comment does not align with the context or requirements of the platform guidelines.
+                We encourage constructive and accurate contributions to ensure meaningful engagement within our community. 
+                If you have any additional insights or questions, feel free to share them.
+                We value your participation and look forward to your future contributions!
+                Best regards,");
             $mailer->send($email);
             $manager->persist($comment);
             $manager->flush();

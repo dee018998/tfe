@@ -22,13 +22,16 @@
         <div class="row  align-items-top justify-content-center">
             {% for course in courses %}
 
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3   p-4">
+                <div class="col-10 col-md-6 col-lg-4 col-xl-3   p-4">
                     <a href="{{ path('app_course',{ slug:course.slug }) }}" class="text-decoration-none">
                         <div class="card rounded-3 border-1 border-secondary rounded-5  bg-dark p-3 ">
-                            <div class="course-img-frm  my-bg-{{ course.color.name }} rounded-5 ">
+                            <div class="course-img-frm position-relative my-bg-{{ course.color.name }} rounded-5 ">
+                                <p class="d-md-none btn btn-outline-light btn-dark position-absolute rounded-2 btn-sm tag-pos text-white">{{ course.duration }}0 Lessons
+                                </p>
                                 <img src="{{ asset('images/courses/' ~ course.image) }}"
                                      class="course-img border-primary img-fluid mx-auto"
                                      alt="...">
+
 
                                 {#
                                 <h2 class="text-white h6	d-none d-md-block mx-3 border-start border-2 ps-2"> {{ course.name|capitalize|u.truncate(30, '...', false) }} </h2>
@@ -37,12 +40,12 @@
                             <div class="mt-3">
                                 <h4 class="text-white h5 font-weight-bold	d-none d-md-block   ps-2"> {{ course.name| title |u.truncate(30, '...', false) }} </h4>
 
-                                <a class="btn btn-outline-light rounded-2 btn-sm"
+                                <a class="btn btn-warning rounded-2 btn-sm"
                                    href="{{ path('app_courses_category', {category:course.category.id}) }}">{{ course.category.name }}</a>
-                                <a class="btn btn-outline-light rounded-2 btn-sm"
+                                <a class="btn btn-warning rounded-2 btn-sm"
                                    href="{{ path('app_courses_level', {level:course.level.id}) }}">{{ course.level.name }}</a>
-                                <button class="btn btn-outline-light rounded-2 btn-sm ">{{ course.duration }}h
-                                </button>
+                                <p class="btn btn-outline-light rounded-2 btn-sm ">{{ course.duration }}h
+                                </p>
                                 <h5 class="text-white  d-sm-block d-md-none	 h1 mt-3"> {{ course.name|capitalize|u.truncate(80, '...', false) }} </h5>
                                 <div class="d-flex flex-row justify-content-start mt-4 text-white ">
                                     {#        {% set total = 0 %}
@@ -73,12 +76,12 @@
     </div>
 
     </section>{#    SECOND SECTION : ABOUT US  #}
-    <section id="our-school" class="bg-primary">
+    <section id="our-school mb-5" class="bg-primary">
         <h2 class="text-center h5 ">WHO ARE WE ?</h2>
         <h3 class="text-center display-2 fw-bold text-white">Online Dj School</h3>
         <div class="container text-center">
             <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-8 col-lg-5">
+                <div class="col-sm-12 col-md-8 col-lg-5 mt-4">
                     <iframe class="you-vid rounded-3" width="560" height="315"
                             src="https://www.youtube.com/embed/4__v5qnvb1k?si=HytA_X08R2asOCZf"
                             title="YouTube video player"
@@ -87,13 +90,15 @@
                     </iframe>
 
                 </div>
+                <div class="mb-5 mt-3">
                 {% include 'fragment/_socials_horizon.html.twig' %}
+                </div>
             </div>
         </div>
 
 
     </section>
-    <section id="testimomial">
+    <section id="testimomial" class="mb-5">
         <h2 class="text-center h5 ">WHAT OUR STUDENTS SAYS</h2>
         <h3 class="text-center display-2 fw-bold text-white">Testimonials</h3>
         <div class="container">
@@ -132,8 +137,8 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <h4 class="text-center h5 ">HAPPY CUSTOMERS</h4>
-        <div class="container d-flex align-item-center justify-content-center h3">
+        <h4 class="text-center h5 mt-3">HAPPY CUSTOMERS</h4>
+        <div class="container d-flex align-item-center justify-content-center h3 mt-2">
             {{ render(controller('App\\Controller\\CommentController::allRating')) }}
         </div>
     </section>
@@ -141,9 +146,9 @@
     <section id="our-team" class=" bg-primary">
         <h2 class="text-center h5 ">OUR TEAM</h2>
         <h3 class="text-center display-2 fw-bold text-white">We Teach</h3>
-        <div class="row  align-items-top justify-content-center ">
-            <div class=" col-sm-12 col-md-6 col-lg-4 px-5">
-                <img src="{{ asset('/images/team_pic.png') }}" alt="our team in the studio" class="img-fluid rounded-2">
+        <div class="row  align-items-top justify-content-center mt-3 ">
+            <div class=" col-sm-12 col-md-6 col-lg-4 pb-5">
+                <img src="{{ asset('/images/team_pic.png') }}" alt="our team in the our studio" class="img-fluid rounded-2">
             </div>
         </div>
     </section>
@@ -161,23 +166,16 @@
                         <a href="{{ (path('app_actu', {slug : actu.slug})) }}" class="text-decoration-none">
                             <div class="actu-div-img ">
                                 <img src="{{ asset('images/actus/' ~ actu.image) }}"
-                                     class="card-img-top rounded-3 actu-img "
+                                     class="card-img-top rounded-3 actu-img mb-2"
                                      alt="...">
                                 <div class="actu-child-img ">
                                     <a href="{{ (path('app_actu_family', {family : actu.family.id})) }}"
-                                       class="btn btn-sm text-white rounded-pill bg-warning">{{ actu.family }}</a>
+                                       class="btn btn-sm text-white rounded-pill bg-warning mb-2">{{ actu.family }}</a>
                                     <h5 class="text-white">{{ actu.name|capitalize|u.truncate(40, '...', false) }}</h5>
 
                                 </div>
                             </div>
-                            <div class="card-body   text-start py-4 bg-transparent">
-                                {#
-                                <h5 class="text-white">{{ actu.name|capitalize|u.truncate(40, '...', false) }}</h5>
-                                #}
 
-                                {# <p>  {{ actu.content  }})</p> #}
-                                {#                <p class="card-text">{{ actu.content|u.truncate(100, '...')}}</p> #}
-                            </div>
                         </a>
                     </div>
                 {% endfor %}

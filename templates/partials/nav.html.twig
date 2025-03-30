@@ -28,7 +28,7 @@
                         <li class="nav-item dropdown d-lg-none">
                             <div class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">Courses</div>
-                            <div class="dropdown-menu " data-bs-popper="static">
+                            <div class="dropdown-menu bg-transparent border-0" data-bs-popper="static">
 
                                 {{ render(controller('App\\Controller\\CategoryController::categories')) }}
                                 {{ render(controller('App\\Controller\\LevelController::levels')) }}
@@ -42,7 +42,7 @@
                         <li class="nav-item dropdown d-lg-none">
                             <div class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">News</div>
-                            <div class="dropdown-menu " data-bs-popper="static">
+                            <div class="dropdown-menu bg-transparent border-0" data-bs-popper="static">
                                 {{ render(controller('App\\Controller\\FamilyController::familiesPhone')) }}
 
                                     <a class="  btn  btn-outline-light border-light  rounded-pill  ms-1  mb-2"
@@ -200,7 +200,7 @@
                     {{ render(controller('App\\Controller\\CategoryController::navcat')) }}
                     {{ render(controller('App\\Controller\\LevelController::navlev')) }}
                     <li class="nav-item " role="presentation">
-                        <a class="nav-link rounded-pill" href="{{ path('app_courses') }}">All</a>
+                        <a class="nav-link rounded-3" href="{{ path('app_courses') }}">All</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tab-Content">
@@ -219,13 +219,15 @@
     <div class="modal fade mt-5 drop-shade" id="exampleModal" tabindex="-1"
          aria-hidden="true">
         <div class="modal-dialog ">
-            <div class="modal-content p-5 bg-black bg-opacity-75 p-4 my-5 rounded-5 ">
+            <div class="modal-content p-5 bg-black  p-4 my-5 rounded-5 ">
                 <div class="nav nav-pills mb-3 d-flex justify-content-start" id="pills-tab-families" role="tablist">
 
 
                     {{ render(controller('App\\Controller\\FamilyController::familiesPhone')) }}
-                   <a class=" btn  btn-outline-light border-light  rounded-pill  ms-3  mb-2" href="{{ path('app_actus') }}">All</a>
+                   <a class=" btn  btn-outline-light border-light  rounded-3  ms-3  mb-2" href="{{ path('app_actus') }}">All</a>
                 </div>
+                <button type="button" class="btn-close bg-light  drop-shade" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
             </div>
         </div>
     </div>

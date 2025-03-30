@@ -34,7 +34,7 @@
             {% for actu in actus %}
                 <tr {% if loop.index is odd %}class="color"{% endif %} >
                     <td>
-                        <img class="ico course-img" src="{{ asset('images/actus/' ~ actu.image) }}"
+                        <img class="ico " src="{{ asset('images/actus/' ~ actu.image) }}"
                              alt="Card image cap"></td>
                     <td>{{ actu.name|capitalize|u.truncate(20, '...', false)  }}</td>
                     <td>{{ actu.createdAt|date('d/m/Y') }}</td><td>{{ actu.content|u.truncate(30, '...', false)  }}</td>

@@ -98,9 +98,15 @@ h2 {
 .course-divider {
     height: 500px;
   /*  filter: grayscale(90%);*/
-    background: url("../images/controller-header.png") no-repeat center top;
+    background: url("../images/Header-shadow.png") no-repeat center top;
     background-size: cover;
 
+}
+.course-divider-body{
+    height: 500px;
+}
+.divider-card{
+    height: 200px;
 }
 .carousel-testimonial{
 min-height: 220px;
@@ -132,8 +138,7 @@ min-height: 220px;
 
 }*/
 /* Table */
-.course-img,
-.nav-img {
+.course-img {
 
     height: 180px;
     width: 240px;
@@ -141,10 +146,20 @@ min-height: 220px;
 /*
     object-fit: cover;*/
 }
-.nav-card-img-tmp{
+.nav-img {
+
+
+
+    max-height: 180px;
+    max-width: 100%;
+    /*
+        object-fit: cover;*/
+}
+
+/*.nav-card-img-tmp{
     height: 205px;
     width: 245px;
-}
+}*/
 .course-card{
 
     min-height: 452px;
@@ -153,6 +168,10 @@ min-height: 220px;
 
 .price{
     background-color: #0a0a0a;
+}
+.tag-pos{
+    top: 75%;
+    right:10%;
 }
 
 .actu-img {
@@ -187,6 +206,10 @@ min-height: 220px;
     height: 30px;
 
 }
+.thumb{
+    height: 50px;
+
+}
 
 form {
     margin-bottom: 20px;
@@ -219,7 +242,7 @@ iframe {
 }
 
 #connection {
-    height: 150px;
+    height: 120px;
 }
 
 .drop-shade {

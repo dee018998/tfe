@@ -45,7 +45,7 @@
 
                         <div>
                             {% for user in course.users %}
-                                {{ user.email }}<br>
+                                <a href="{{ path('app_admin_mail_user', {id:user.id}) }}">{{ user.email }}<br></a>
                             {% endfor %}
                         </div>
 

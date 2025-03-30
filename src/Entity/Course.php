@@ -28,7 +28,7 @@ class Course
     )]
     #[Assert\Length(
         min: 15,
-        max: 30,
+        max: 35,
         minMessage : "Le titre doit contenir au moins {{ limit }} caractères",
 
         maxMessage : "Le titre ne peut contenir plus de  {{ limit }} caractères",

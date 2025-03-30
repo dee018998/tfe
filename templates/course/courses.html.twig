@@ -3,7 +3,7 @@
 {% block title %}Our Courses{% endblock %}
 {% block header %}
     {% include 'partials/courses-header.html.twig' %}
-<div class="my-3">
+<div class="my-3 text-warning">
 
     {% include 'fragment/_socials_horizon.html.twig' %}
 </div>
@@ -13,12 +13,13 @@
 
 
 <div class="bg-primary">
-    <div class="container     p-5 ">
+    <div class="container     p-md-5 p-3">
         <div class="container rounded-5  bg-dark p-5">
             <div class="row ">
                 <a class="btn btn-outline-light border-light rounded-pill col mb-2" href="{{ path('app_courses') }}">All</a>
 
                 {{ render(controller('App\\Controller\\CategoryController::categories')) }}
+               {# Go To  'partials/levels.html.twig'#}
                 {{ render(controller('App\\Controller\\LevelController::levels')) }}
             </div>
 
@@ -26,65 +27,71 @@
                {% set arcomments = [] %}
                 {% for course in courses %}
 
-                    <div class="col-12 col-md-6 col-lg-4 col-xl-3   p-4">
-                        <a href="{{ path('app_course',{ slug:course.slug }) }}" class="text-decoration-none">
-                            <div class="card rounded-3 border-1 border-secondary rounded-5  bg-dark p-3 course-card">
-                                <div class="course-img-frm  my-bg-{{ course.color.name}} rounded-5 ">
-                                    <img src="{{ asset('images/courses/' ~ course.image) }}"
-                                         class="course-img border-primary  "
-                                         alt="...">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3   p-4">
+                            <a href="{{ path('app_course',{ slug:course.slug }) }}" class="text-decoration-none  ">
+                                <div class="card rounded-3 border-1 border-secondary rounded-5  bg-dark p-3 course-card w-100">
+                                    <div class="course-img-frm position-relative my-bg-{{ course.color.name}} rounded-5 ">
+                                        <p class="d-md-none btn btn-outline-light btn-dark position-absolute rounded-2 btn-sm tag-pos text-white">{{ course.duration }}0 Lessons
+                                        </p>
+                                        <img src="{{ asset('images/courses/' ~ course.image) }}"
+                                             class="course-img border-primary  "
+                                             alt="...">
 
-{#
-                                    <h2 class="text-white h6	d-none d-md-block mx-3 border-start border-2 ps-2"> {{ course.name|capitalize|u.truncate(30, '...', false) }} </h2>
-#}
-                                </div>
-
-                                <div class="mt-3 d-flex flex-column justify-content-center">
-                                    <h2 class="text-white h5 font-weight-bold	d-none d-md-block   ps-2"> {{ course.name| title |u.truncate(30, '...', false) }} </h2>
-<div>
-                                    <a class="btn btn-outline-light rounded-2 btn-sm"
-                                       href="{{ path('app_courses_category', {category:course.category.id}) }}">{{ course.category.name }}</a>
-                                    <a class="btn btn-outline-light rounded-2 btn-sm"
-                                       href="{{ path('app_courses_level', {level:course.level.id}) }}">{{ course.level.name }}</a>
-                                    <button class="btn btn-outline-light rounded-2 btn-sm ">{{ course.duration }} h</button>
-                                </div>
-                                    <h5 class="text-white  d-sm-block d-md-none	 h1 mt-3"> {{ course.name|capitalize|u.truncate(80, '...', false) }} </h5>
-
-                                    <div class="d-flex flex-row justify-content-start mt-4 text-white ">
-                                        {% set total = 0 %}
-                                        {% for key, comment in course.comments %}
-                                            {% set i = key %}
-                                            {% set total = total + comment.rating %}
-                                      {#      {% set arcomments =comment  %}#}
-                                            {% set arcomments = arcomments|merge( [comment]) %}
-                                        {% endfor %}
-                                        {% if course.comments|length %}
-                                            {% set avg = total / course.comments|length %}
-
-                                            <p class="me-3"> {{ avg|format_number({fraction_digit: 1}) }} </p>
-                                            <p>{{ avg|rating(5, "fa-norm") }} </p>   <p class="ms-3">
-                                            ({{ course.comments|length }} )</p>
-
-                                        {% else %}
-                                            {% set avg = 0 %}
-                                            <p>{{ avg|rating(5, "fa-norm") }}</p>
-                                            <p>{{ course.comments|length }} </p>
-                                        {% endif %}
-
+                                        {#
+                                        <h2 class="text-white h6	d-none d-md-block mx-3 border-start border-2 ps-2"> {{ course.name|capitalize|u.truncate(30, '...', false) }} </h2>
+                                        #}
                                     </div>
-                                    <p class="h2 text-white">{{ course.price }}€</p>
+
+                                    <div class="mt-3 d-flex flex-column justify-content-center">
+                                        <h2 class="text-white h5 font-weight-bold	d-none d-md-block   ps-2"> {{ course.name| title |u.truncate(30, '...', false) }} </h2>
+                                        <div>
+                                            <a class="btn btn-warning rounded-2 btn-sm"
+                                               href="{{ path('app_courses_category', {category:course.category.id}) }}">{{ course.category.name }}</a>
+                                            <a class="btn btn-warning rounded-2 btn-sm"
+                                               href="{{ path('app_courses_level', {level:course.level.id}) }}">{{ course.level.name }}</a>
+                                            <button class="btn btn-warning rounded-2 btn-sm ">{{ course.duration }} h</button>
+                                        </div>
+                                        <h5 class="text-white  d-sm-block d-md-none	 h1 mt-3"> {{ course.name|capitalize|u.truncate(80, '...', false) }} </h5>
+
+                                        <div class="d-flex flex-row justify-content-start mt-4 text-white ">
+                                            {% set total = 0 %}
+                                            {% for key, comment in course.comments %}
+                                                {% set i = key %}
+                                                {% set total = total + comment.rating %}
+                                                {#      {% set arcomments =comment  %}#}
+                                                {% set arcomments = arcomments|merge( [comment]) %}
+                                            {% endfor %}
+                                            {% if course.comments|length %}
+                                                {% set avg = total / course.comments|length %}
+
+                                                <p class="me-3"> {{ avg|format_number({fraction_digit: 1}) }} </p>
+                                                <p>{{ avg|rating(5, "fa-norm") }} </p>   <p class="ms-3">
+                                                ({{ course.comments|length }} )</p>
+
+                                            {% else %}
+                                                {% set avg = 0 %}
+                                                <p>{{ avg|rating(5, "fa-norm") }}</p>
+                                                <p>{{ course.comments|length }} </p>
+                                            {% endif %}
+
+                                        </div>
+                                        <p class="h2 text-white">{{ course.price }}€</p>
+                                    </div>
+
                                 </div>
 
-                            </div>
+
+                            </a>
 
 
-                        </a>
+                        </div>
 
 
-                    </div>
+
+
                 {% endfor %}
             </div>
-            <div class=" pb-4 text-center ">
+            <div class=" text-center ms-2">
                 {{ knp_pagination_render(courses) }}
             </div>
         </div>
@@ -131,7 +138,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <h4 class="text-center h5 ">HAPPY CUSTOMERS</h4>
+        <h4 class="text-center h5 pt-3">HAPPY CUSTOMERS</h4>
         <div class="container d-flex align-item-center justify-content-center h3">
             {{ render(controller('App\\Controller\\CommentController::allRating')) }}
         </div>

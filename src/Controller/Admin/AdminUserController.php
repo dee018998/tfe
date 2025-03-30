@@ -13,30 +13,38 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
+
+
 class AdminUserController extends AbstractController
 {
-    #[Route('/admin/user', name: 'app_admin_user')]
-    public function users(UserRepository $repository,Request $request, PaginatorInterface $paginator): Response
-    {
-        $users = $repository->findBy([], [],);
-        $arusr =[];
-        foreach ($users as $user) {
-            $roles = $user->getRoles();
-                if ($roles[0] == 'ROLE_USER') {
-                    $arusr[] = $user;
-                }
-        }
-       $users = $arusr;
-        $users = $paginator->paginate($users,
-            $request->query->getInt('page',1),
-            12
-        );
-        return $this->render('admin/user.html.twig', [
-            'users' => $users,
-        ]);
+    #[Route('/admin/user/{type?}', name: 'app_admin_user')]
+    public function users($type, UserRepository $repository,Request $request, PaginatorInterface $paginator): Response
+    {   if ($type == 'clients' ){
+        $type = 'ROLE_CLIENT';
+    }elseif ($type == 'users') {
+        $type = 'ROLE_USER';
     }
+               $users = $repository->findBy([], [],);
+                $arusr = [];
 
+                foreach ($users as $user) {
+                    $roles = $user->getRoles();
+                    if ($roles[0] == $type ) {
+                        $arusr[] = $user;
+                    }
 
+                    $users = $arusr;
+                    $users = $paginator->paginate($users,
+                        $request->query->getInt('page', 1),
+                        12
+                    );
+                }
+                    return $this->render('admin/user.html.twig', [
+                        'users' => $users,
+                        'type' => $type
+
+                    ]);
+    }
     #[Route('/admin/promuser/{id}', 'app_admin_promuser')]
     public function viewPost(User $user, Request $request, EntityManagerInterface $manager): Response
     {

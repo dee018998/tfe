@@ -8,87 +8,91 @@
                     <ul class=" list-unstyled border-top border-warning">
 
                         <li class="h4 mt-3"><a class=" text-decoration-none"
-                               href="{{ path('app_courses') }}"><i class="icofont-letter text-warning me-2"></i>
+                                               href="{{ path('app_courses') }}"><i
+                                        class="icofont-letter text-warning me-2"></i>
                                 Contact</a></li>
 
                         <li class="h4"><a class=" text-decoration-none"
-                               href="{{ path('app_courses') }}"><i class="icofont-user-alt-3 text-warning me-2"></i>
+                                          href="{{ path('app_courses') }}"><i
+                                        class="icofont-user-alt-3 text-warning me-2"></i>
                                 Login</a></li>
 
 
                     </ul>
 
                 </div>
-                <div class="col-md-12 col-lg-6   p-4 bg-black mt-3 rounded-5 text-center">
+
+                <div class="ms-3 col-11 col-md-12 col-lg-6   p-4 bg-black mt-3 rounded-5 text-center">
 
                     <h5 class="h4">Join Our Mailing List</h5>
-                    <p>Free DJ lessons, Music Pack,  access to new courses and updates on the latest products and DJ news straight to your inbox!</p>
+                    <p>Free DJ lessons, Music Pack, access to new courses and updates on the latest products and DJ news
+                        straight to your inbox!</p>
                     <div class="" id="accordionFooter">
                         <div class="accordion-item ">
 
-                        <i class=" icofont-circled-down our-socials text-warning mb-3" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></i>
+                            <i class=" icofont-circled-down our-socials text-warning mb-3" data-bs-toggle="collapse"
+                               data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></i>
 
-                            <div id="collapseOne" class="accordion-collapse collapse bg-black " data-bs-parent="#accordionFooter">
+                            <div id="collapseOne" class="accordion-collapse collapse bg-black mt-3"
+                                 data-bs-parent="#accordionFooter">
                                 <div class="accordion-body bg-black">
                                     {{ render(controller('App\\Controller\\MailingController::footMailing')) }}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <h5 class="h4">Or Visit Our Socials</h5>
-                        {% include 'fragment/_socials_horizon.html.twig' %}
+                    <div class="my-3">
+                        <h5 class="h4 mb-2">Or Visit Our Socials</h5>
+                        <div class="text-warning">
+                            {% include 'fragment/_socials_horizon.html.twig' %}</div>
                     </div>
 
                 </div>
 
                 <div class="col-12 col-md-12 col-lg-2    p-4">
-                        <h5>DJ Content</h5>
-                        <ul class=" list-unstyled border-top border-warning mt-2">
+                    <h5>DJ Content</h5>
+                    <ul class=" list-unstyled border-top border-warning mt-2">
 
-                            <li class="h5 mt-2"><a class=" text-decoration-none"
-                                              href="{{ path('app_courses') }}">
-                                    Courses</a></li>
+                        <li class="h5 mt-2"><a class=" text-decoration-none"
+                                               href="{{ path('app_courses') }}">
+                                Courses</a></li>
 
-                            <li class="h5"><a class=" text-decoration-none"
-                                              href="{{ path('app_courses') }}">
-                                    Package</a></li>
+                        <li class="h5"><a class=" text-decoration-none"
+                                          href="{{ path('app_courses') }}">
+                                Package</a></li>
 
-                            <li class="h5"><a class=" text-decoration-none"
-                                              href="{{ path('app_courses') }}">
-                                    News</a></li>
+                        <li class="h5"><a class=" text-decoration-none"
+                                          href="{{ path('app_courses') }}">
+                                News</a></li>
 
-                            <li class="h5"><a class=" text-decoration-none"
-                                              href="{{ path('app_courses') }}">
-                                    Review</a></li>
+                        <li class="h5"><a class=" text-decoration-none"
+                                          href="{{ path('app_courses') }}">
+                                Review</a></li>
 
-                            <li class="h5"><a class=" text-decoration-none"
-                                              href="{{ path('app_courses') }}">
-                                    Tutorials</a></li>
-                            <li class="h5"><a class=" text-decoration-none"
-                                              href="{{ path('app_courses') }}">
-                                    Mixes</a></li>
+                        <li class="h5"><a class=" text-decoration-none"
+                                          href="{{ path('app_courses') }}">
+                                Tutorials</a></li>
+                        <li class="h5"><a class=" text-decoration-none"
+                                          href="{{ path('app_courses') }}">
+                                Mixes</a></li>
 
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>
 
 
-        <div class="container text-center mt-5 mb-2">
+        <div class="container text-center mt-4 mb-5">
 
-            <p class="h5 ">Copyright © 2024  My Online Dj School :
-     <a class=" text-decoration-none text-warning"
-                              href="{{ path('app_courses') }}">
+            <p class="h5 ">Copyright © 2024 My Online Dj School :
+                <a class=" text-decoration-none text-warning"
+                   href="{{ path('app_courses') }}">
                     Privacy, </a>
 
-          <a class=" text-decoration-none text-warning h5"
-                              href="{{ path('app_courses') }}">
-                     Terms & Conditions</a>
+                <a class=" text-decoration-none text-warning h5"
+                   href="{{ path('app_courses') }}">
+                    Terms & Conditions</a>
             </p>
-
-            </div>
-
-
+        </div>
     </footer>
 {% endblock %}

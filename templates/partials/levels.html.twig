@@ -1,6 +1,6 @@
 {% for level in levels %}
 
 
-       <a class="btn text-decoration-none btn-outline-light border-light rounded-pill col ms-1 mb-2" href="{{ path('app_courses_level', {level:level.id}) }}">1{{ level.name }}</a>
+       <a class="btn text-decoration-none btn-outline-light border-light rounded-pill col ms-1 mb-2" href="{{ path('app_courses_level', {level:level.id}) }}">{{ level.name }}</a>
 
 {% endfor %}

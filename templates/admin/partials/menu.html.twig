@@ -56,7 +56,9 @@
                      data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div>
-                            <a href="{{ path('app_admin_user') }}" class="btn">Gestion des utilisateurs</a>
+                            <a href="{{ path('app_admin_user',{type:'users'}) }}" class="btn">Gestion des utilisateurs</a>
+                        </div>        <div>
+                            <a href="{{ path('app_admin_user',{type:'clients'}) }}" class="btn">Gestion des clients</a>
                         </div>
                         <div>
                             <a href="{{ path('app_register') }}" class="btn">Ajouter un utilisateur</a>
