@@ -78,6 +78,9 @@ class Actu
 
     #[ORM\Column(nullable: true)]
     private ?bool $isVideo = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $alt = null;
     public function getId(): ?int
     {
         return $this->id;
@@ -220,6 +223,18 @@ class Actu
     public function setIsVideo(?bool $isVideo): static
     {
         $this->isVideo = $isVideo;
+
+        return $this;
+    }
+
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): static
+    {
+        $this->alt = $alt;
 
         return $this;
     }
